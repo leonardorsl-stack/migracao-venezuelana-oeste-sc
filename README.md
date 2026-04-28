@@ -2,7 +2,7 @@
 
 [![Licença: MIT](https://img.shields.io/badge/Licen%C3%A7a-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Licença: CC BY 4.0](https://img.shields.io/badge/Licen%C3%A7a-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19858668.svg)](https://doi.org/10.5281/zenodo.19858668)
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
 [![Quarto](https://img.shields.io/badge/quarto-%5E1.4-blueviolet)](https://quarto.org)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
@@ -141,7 +141,7 @@ Se utilizar este projeto ou dados, por favor cite:
   title        = {Raio X da Migração Venezuelana no Oeste de Santa Catarina},
   year         = {2026},
   publisher    = {Zenodo},
-  doi          = {10.5281/zenodo.XXXXXXX},
+  doi          = {10.5281/zenodo.19858668},
   url          = {https://github.com/SEU_USUARIO/migracao-venezuelana-oeste-sc}
 }
 ```
@@ -174,7 +174,7 @@ Este projeto adere aos seguintes frameworks e diretrizes:
 |---------|------|-----------|
 | GitHub | [github.com/SEU_USUARIO/migracao-venezuelana-oeste-sc](https://github.com) | Versionamento de código |
 | OSF | [osf.io/XXXXX](https://osf.io) | Pré-registro e materiais |
-| Zenodo | [doi.org/10.5281/zenodo.XXXXXXX](https://zenodo.org) | Arquivamento com DOI |
+| Zenodo | [doi.org/10.5281/zenodo.19858668](https://zenodo.org) | Arquivamento com DOI |
 | Zotero | [zotero.org/groups/XXXXX](https://www.zotero.org) | Bibliografia colaborativa |
 
 ---

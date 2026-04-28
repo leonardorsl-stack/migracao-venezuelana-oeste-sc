@@ -140,13 +140,13 @@ def _sidra_get(tabela: str, periodos: List[str], variaveis: List[str],
             parts.append(f"{nivel}/{','.join(codigos)}")
     parts.append(f"p/{','.join(periodos)}")
     parts.append(f"v/{','.join(variaveis)}")
-    url = "/".join(parts)
-
-    # Classificações vão como query string (a API aceita bem)
-    params: Dict[str, str] = {}
+    # Classificações vão no path (mais robusto que query string)
     if classificacoes:
         for classif, categorias in classificacoes.items():
-            params[f"c{classif}"] = ",".join(categorias)
+            parts.append(f"c{classif}/{','.join(categorias)}")
+    url = "/".join(parts)
+
+    params: Dict[str, str] = {}
 
     logger.info("Requisitando SIDRA: %s com params %s", url, params)
 
@@ -359,6 +359,7 @@ def fetch_censo_2022_migrantes(
             periodos=["2022"],
             variaveis=["93"],
             localidades={"N6": str_loc},
+            classificacoes={"2": ["4", "5"]},
         )
         df_total = _normaliza_valor_sidra(df_total)
         df_total = df_total.rename(columns={

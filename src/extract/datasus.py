@@ -150,7 +150,12 @@ def download_sim_sc(
         logger.info("Baixando SIM SC %s...", a)
         try:
             result = SIM.download(groups="CID10", states="SC", years=a)
-            df = result.to_dataframe()
+            if isinstance(result, list):
+                if not result:
+                    raise ValueError("PySUS retornou lista vazia para SIM %s." % a)
+                df = pd.concat([r.to_dataframe() for r in result], ignore_index=True)
+            else:
+                df = result.to_dataframe()
         except Exception as exc:
             logger.error("Erro no download SIM SC %s: %s", a, exc)
             stub = _save_stub(file_path, f"SIM_SC_{a}", str(exc))
@@ -217,7 +222,12 @@ def download_sinasc_sc(
         logger.info("Baixando SINASC SC %s...", a)
         try:
             result = SINASC.download(groups="DN", states="SC", years=a)
-            df = result.to_dataframe()
+            if isinstance(result, list):
+                if not result:
+                    raise ValueError("PySUS retornou lista vazia para SINASC %s." % a)
+                df = pd.concat([r.to_dataframe() for r in result], ignore_index=True)
+            else:
+                df = result.to_dataframe()
         except Exception as exc:
             logger.error("Erro no download SINASC SC %s: %s", a, exc)
             stub = _save_stub(file_path, f"SINASC_SC_{a}", str(exc))
