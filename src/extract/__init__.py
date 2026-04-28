@@ -13,15 +13,19 @@ As funções exportadas cobrem:
 
 from src.extract.ibge import (
     fetch_censo_2022,
+    fetch_censo_2022_migrantes,
     fetch_estimativas_populacionais,
     fetch_pnad,
+    fetch_populacao_estimada,
     fetch_sidra,
 )
 from src.extract.datasus import (
-    download_aih,
     download_bpa,
-    download_sim,
-    download_sinasc,
+    download_datasus_aih as download_aih,
+    download_datasus_sim as download_sim,
+    download_datasus_sinasc as download_sinasc,
+    download_sim_sc,
+    download_sinasc_sc,
     download_sipni,
 )
 from src.extract.rais import fetch_rais_vinculos
@@ -37,8 +41,12 @@ __all__ = [
     "fetch_censo_2022",
     "fetch_estimativas_populacionais",
     "fetch_pnad",
+    "fetch_populacao_estimada",
+    "fetch_censo_2022_migrantes",
     "download_sim",
     "download_sinasc",
+    "download_sim_sc",
+    "download_sinasc_sc",
     "download_aih",
     "download_bpa",
     "download_sipni",

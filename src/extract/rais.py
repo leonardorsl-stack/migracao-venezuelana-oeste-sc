@@ -5,10 +5,21 @@ do Trabalho e Emprego (MTE). A RAIS contém informações sobre vínculos
 empregatícios formais no Brasil, incluindo variáveis de nacionalidade, escolaridade,
 raça/cor, salário, entre outras.
 
-Acesso:
-    Os microdados estão disponíveis via FTP público do MTE ou via portal
-    ``basedosdados.org``. O acesso ao FTP requer credenciais que podem ser
-    solicitadas junto ao MTE.
+Acesso e Limitações:
+    Os microdados da RAIS **não estão disponíveis para download automático**
+    sem credenciais ou sem aceite de termos de uso. As principais formas de
+    obtenção são:
+
+    1. **FTP do MTE** (``ftp.mtps.gov.br``): requer credenciais de acesso que
+       devem ser solicitadas diretamente ao Ministério do Trabalho e Emprego.
+    2. **Portal basedosdados.org**: oferece a RAIS tratada em formato
+       amigável (BigQuery), mas também exige cadastro.
+    3. **Portal RAIS.gov.br**: permite download manual de arquivos
+       estabelecimentos e vínculos, geralmente compactados em ``.7z``.
+
+    Por conta dessas restrições, este módulo documenta a interface esperada
+    mas pode falhar em ambientes sem credenciais FTP ou sem os arquivos
+    locais prévio download.
 
 Note:
     Este módulo documenta a interface esperada. A implementação completa do

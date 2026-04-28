@@ -8,6 +8,18 @@ A partir de 2020, o Novo CAGED apresenta layout diferente do legado, com
 arquivos mensais em formato ``.txt`` compactados em ``.7z``. Este módulo
 implementa download via FTP, descompactação e concatenação histórica.
 
+Acesso e Limitações:
+    O download automático do CAGED depende do FTP público do MTE
+    (``ftp.mtps.gov.br/pdet/microdados/NOVO_CAGED/``). Embora o FTP seja
+    público, a estrutura de diretórios e nomes de arquivos podem mudar sem
+    aviso prévio. Além disso, arquivos a partir de 2020 exigem o utilitário
+    ``7z`` para descompactação.
+
+    Alternativas de obtenção:
+    1. **FTP direto**: ``ftp://ftp.mtps.gov.br/pdet/microdados/NOVO_CAGED/``
+    2. **Portal gov.br**: ``https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/caged``
+    3. **basedosdados.org**: versão tratada em BigQuery (requer cadastro).
+
 Referência:
     - https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/caged
 
