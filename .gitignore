@@ -1,0 +1,217 @@
+# =============================================================================
+# Python / Jupyter / IDEs
+# =============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+*.whl
+pip-wheel-metadata/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+*.ipynb_checkpoints
+
+# PyCharm / IntelliJ
+.idea/
+*.iml
+*.iws
+out/
+
+# VS Code
+.vscode/
+*.code-workspace
+.history/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Spyder
+.spyderproject
+.spyproject
+
+# Rope
+.ropeproject
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# =============================================================================
+# Dados (nunca versionar dados brutos ou sensíveis)
+# =============================================================================
+
+# Diretórios de dados
+/data/raw/
+/data/interim/
+/data/processed/
+/data/external/
+/data/private/
+/data/temp/
+
+# Arquivos de dados comuns
+*.csv
+*.tsv
+*.parquet
+*.db
+*.sqlite
+*.sqlite3
+*.duckdb
+*.xls
+*.xlsx
+*.xlsm
+*.ods
+*.json
+*.jsonl
+*.xml
+*.yaml
+*.yml
+*.sav
+*.dta
+*.rds
+*.rdata
+*.feather
+*.h5
+*.hdf5
+*.nc
+*.zip
+*.tar
+*.gz
+*.bz2
+*.7z
+*.rar
+
+# Shapefiles e dados espaciais
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.sbn
+*.sbx
+*.shp.xml
+*.geojson
+*.kml
+*.kmz
+
+# =============================================================================
+# Ambiente / Credenciais / Configurações locais
+# =============================================================================
+
+# Variáveis de ambiente e credenciais (NUNCA versionar)
+.env
+.env.local
+.env.*.local
+.envrc
+*.pem
+*.key
+*.crt
+secrets.yaml
+secrets.yml
+secrets.json
+credentials.json
+token.json
+
+# Configurações de serviços
+.zenodo.json
+.osf.json
+.zotero.json
+
+# =============================================================================
+# Outputs / Relatórios / Artefatos gerados
+# =============================================================================
+
+# Diretórios de saída
+/outputs/
+/output/
+/results/
+/reports/figures/
+/reports/tables/
+/reports/*.html
+/reports/*.pdf
+/reports/*.docx
+/reports/*.odt
+/docs/_build/
+/docs/site/
+
+# Quarto
+/.quarto/
+*_files/
+*_cache/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# LaTeX / Pandoc
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.xdv
+
+# =============================================================================
+# Testes / Cobertura
+# =============================================================================
+
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
+pytestdebug.log
+
+# =============================================================================
+# Logs / Temporários
+# =============================================================================
+
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+*.pid
+*.seed
+*.pid.lock
+
+# =============================================================================
+# Git
+# =============================================================================
+
+!.gitkeep
