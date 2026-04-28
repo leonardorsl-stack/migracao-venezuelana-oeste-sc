@@ -142,6 +142,46 @@ def create_osf_folder(node_id: str, folder_name: str, target_path: str = "") -> 
     return resp.json()
 
 
+def _get_upload_link(node_id: str, target_path: str = "") -> str:
+    """Obtém o link de upload correto via API v2 do OSF.
+
+    Para a raiz, usa o link base do provider (``/v2/nodes/{id}/files/``).
+    Para subpastas, lista a raiz e retorna o ``links.upload`` da pasta.
+
+    Args:
+        node_id: Identificador do nó OSF.
+        target_path: Caminho de destino relativo no osfstorage.
+
+    Returns:
+        URL base do WaterButler para upload.
+    """
+    headers = get_osf_headers()
+    
+    if target_path:
+        target_path = target_path.strip("/")
+        # Lista a raiz para encontrar a pasta e seu link de upload
+        url = f"{OSF_API_BASE}/nodes/{node_id}/files/osfstorage/"
+        resp = requests.get(url, headers=headers, timeout=30)
+        resp.raise_for_status()
+        for item in resp.json().get("data", []):
+            attr = item.get("attributes", {})
+            if attr.get("kind") == "folder" and attr.get("name") == target_path:
+                upload_link = item.get("links", {}).get("upload", "")
+                if upload_link:
+                    return upload_link
+        raise FileNotFoundError(
+            f"Pasta '{target_path}' não encontrada no OSF. "
+            "Crie-a primeiro com create_osf_folder()."
+        )
+    
+    # Link base do provider para a raiz
+    url = f"{OSF_API_BASE}/nodes/{node_id}/files/"
+    resp = requests.get(url, headers=headers, timeout=30)
+    resp.raise_for_status()
+    data = resp.json()["data"][0]
+    return data["links"]["upload"]
+
+
 def upload_file_to_osf(
     node_id: str,
     file_path: Path,
@@ -149,8 +189,8 @@ def upload_file_to_osf(
 ) -> Dict[str, Any]:
     """Faz upload de um arquivo local para o OSF.
 
-    Utiliza o endpoint do WaterButler (v1) com método PUT.
-    Arquivos grandes são lidos em chunks para não sobrecarregar a memória.
+    Utiliza o endpoint do WaterButler (v1) com método PUT e query params
+    ``kind=file&name={filename}`` conforme documentação atual do OSF.
 
     Args:
         node_id: Identificador do nó OSF.
@@ -168,10 +208,12 @@ def upload_file_to_osf(
     target_path = target_path.strip("/")
     file_name = file_path.name
 
-    if target_path:
-        upload_url = f"{OSF_FILES_BASE}/resources/{node_id}/providers/osfstorage/{target_path}/{file_name}"
-    else:
-        upload_url = f"{OSF_FILES_BASE}/resources/{node_id}/providers/osfstorage/{file_name}"
+    # Evita duplicar o nome do arquivo no path
+    if target_path.endswith(file_name):
+        target_path = target_path[: -len(file_name)].strip("/")
+
+    upload_base = _get_upload_link(node_id, target_path)
+    upload_url = f"{upload_base}?kind=file&name={file_name}"
 
     file_size = file_path.stat().st_size
     logger.info("Enviando '%s' (%d bytes) para OSF/%s ...", file_name, file_size, target_path or "raiz")
@@ -181,14 +223,8 @@ def upload_file_to_osf(
         "Content-Type": "application/octet-stream",
     }
 
-    # Envia em chunks de 1 MB para arquivos grandes
     with file_path.open("rb") as f:
-        resp = requests.put(
-            upload_url,
-            headers=headers,
-            data=f,
-            timeout=300,
-        )
+        resp = requests.put(upload_url, headers=headers, data=f, timeout=300)
     resp.raise_for_status()
     logger.info("Upload concluído: %s", resp.json().get("data", {}).get("attributes", {}).get("name", file_name))
     return resp.json()
