@@ -30,9 +30,9 @@ from src.extract.datasus import (
 )
 from src.extract.rais import fetch_rais_vinculos
 from src.extract.caged import (
-    concatena_historica,
     fetch_caged_admissoes,
     fetch_caged_desligamentos,
+    process_caged_sc,
 )
 from src.extract.sed_sc import load_matriculas, load_pare
 
@@ -53,7 +53,7 @@ __all__ = [
     "fetch_rais_vinculos",
     "fetch_caged_admissoes",
     "fetch_caged_desligamentos",
-    "concatena_historica",
+    "process_caged_sc",
     "load_matriculas",
     "load_pare",
 ]
