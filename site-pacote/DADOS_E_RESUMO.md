@@ -182,11 +182,13 @@
 
 ## 10. NOTAS METODOLÓGICAS IMPORTANTES
 
-1. **SIM/SINASC:** Não foi possível filtrar venezuelanos. O campo `NATURAL` é código de município de nascimento (3 dígitos), não nacionalidade. Nenhum registro com código 092 (Venezuela) foi encontrado.
+1. **SIM/SINASC:** Não foi possível filtrar venezuelanos. O campo `NATURAL` é código de município de nascimento (3 dígitos), não nacionalidade. Nenhum registro com código 092 (Venezuela) foi encontrado. Dados disponíveis até 2023 (SIM) e 2022 (SINASC).
 2. **CAGED:** Não possui variável de nacionalidade a partir de 2020 (Novo CAGED).
 3. **SIA/SUS:** Não possui campo de nacionalidade.
-4. **RAIS e SIH/SUS** são as únicas fontes federais com filtro de nacionalidade funcional (`NACIONAL` = '092').
-5. Dados de SIM 2024 foram convertidos mas **não incorporados** ao painel longitudinal (o painel para mortalidade/natalidade para em 2023 devido à disponibilidade).
+4. **SIH/SUS** utiliza o código `092` (IBGE/DataSUS) para identificar venezuelanos.  
+   **RAIS/MTE** utiliza o código **`26`** para Venezuela — os dados deste projeto foram filtrados e validados com esse código.
+5. **Censo 2022:** O IBGE divulgou agregados de imigrantes por município, mas os **microdados de perfil etário** ainda não foram disponibilizados. A pirâmide etária apresentada reflete apenas o perfil dos **vínculos formais RAIS** (força de trabalho), não da população venezuelana total.
+6. Dados de SIM 2024 foram convertidos mas **não incorporados** ao painel longitudinal (o painel para mortalidade/natalidade para em 2023 devido à disponibilidade).
 
 ---
 

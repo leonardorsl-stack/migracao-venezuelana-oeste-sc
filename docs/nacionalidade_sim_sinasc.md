@@ -219,7 +219,15 @@ O campo `CODPAISRES` é teoricamente o campo de país de residência, mas em tod
 
 ---
 
-## 6. Conclusão
+## 6. Nota sobre RAIS — Código de Nacionalidade
+
+> **Importante:** A RAIS/MTE utiliza o código de nacionalidade **`26`** para Venezuela, conforme tabela oficial do Ministério do Trabalho.  
+> O código **`092`** é utilizado pelo IBGE/DataSUS (SIH/SUS) e pela Receita Federal, mas **não se aplica à RAIS**.  
+> Todos os arquivos `rais_vinculos_sc_venezuela_YYYY.parquet` deste projeto foram filtrados pelo código `26` e validados: 100% dos registros possuem `nacionalidade == '26'`.
+
+---
+
+## 7. Conclusão
 
 | Questão | Resposta |
 |:---|:---|
@@ -227,6 +235,7 @@ O campo `CODPAISRES` é teoricamente o campo de país de residência, mas em tod
 | Há campo de nacionalidade no SINASC? | **Não.** Apenas `NATURALMAE` e `CODPAISRES` (sempre = Brasil). |
 | É possível filtrar venezuelanos no SIM? | **Não.** O código `092` (Venezuela) não aparece em 2018–2024. |
 | É possível filtrar venezuelanos no SINASC? | **Não.** O código `092` não aparece em 2018–2022. |
+| Qual código usar na RAIS? | **`26`** (padrão MTE/RAIS), não `092`. |
 | Qual a melhor alternativa? | Usar `NATURAL`/`NATURALMAE` como proxy para estrangeiros, aceitando que venezuelanos estarão sub-representados ou invisíveis. |
 
 ### Recomendações para o projeto
