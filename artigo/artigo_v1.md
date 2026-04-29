@@ -94,13 +94,13 @@ O estudo utiliza quatro bases de dados administrativas federais, complementadas 
 | SIM | DataSUS/Ministério da Saúde | 2018-2023 | 654 (Oeste SC) | Óbitos por município e ano | Sem campo de nacionalidade funcional para filtro; apenas total de óbitos |
 | SINASC | DataSUS/Ministério da Saúde | 2018-2022 | 545 (Oeste SC) | Nascimentos por município e ano | Sem campo de nacionalidade funcional para filtro; apenas total de nascimentos |
 
-*Nota: A variável de nacionalidade nos sistemas SIM e SINASC (campo NATURAL/NATURALMAE) registra o município de nascimento (código IBGE de 3 dígitos), não a nacionalidade do indivíduo. Nenhum registro com código 092 (Venezuela) foi identificado, impedindo o filtro da população de interesse.*
+*Nota: A variável de nacionalidade nos sistemas SIM e SINASC (campo NATURAL/NATURALMAE) registra o município de nascimento (código IBGE de 3 dígitos), não a nacionalidade do indivíduo. Nenhum registro com código de nacionalidade venezuelana foi identificado nessas bases, impedindo o filtro da população de interesse.*
 
 #### 3.1.1. RAIS — Relação Anual de Informações Sociais
 
 A RAIS constitui a principal fonte de dados sobre o mercado de trabalho formal no Brasil, com cobertura anual de aproximadamente 60 milhões de vínculos empregatícios. O arquivo público da RAIS é disponibilizado pelo Ministério do Trabalho e Emprego em formato CSV, com informações desidentificadas sobre cada vínculo ativo em 31 de dezembro do ano de referência.
 
-Para o presente estudo, foram utilizados os arquivos da RAIS correspondentes aos anos de 2018 a 2024, filtrados para o estado de Santa Catarina e para nacionalidade Venezuela (código '092' no campo `NACIONAL`). O processamento incluiu: (i) leitura dos arquivos CSV originais; (ii) filtragem por nacionalidade; (iii) agregação por município de trabalho, sexo, faixa etária, ocupação (CBO 2002) e setor de atividade (CNAE 2.0); (iv) cálculo de taxas per mil habitantes; e (v) construção de série temporal.
+Para o presente estudo, foram utilizados os arquivos da RAIS correspondentes aos anos de 2018 a 2024, filtrados para o estado de Santa Catarina e para nacionalidade Venezuela (código '26' no campo `NACIONAL`, padrão MTE/RAIS). O processamento incluiu: (i) leitura dos arquivos CSV originais; (ii) filtragem por nacionalidade; (iii) agregação por município de trabalho, sexo, faixa etária, ocupação (CBO 2002) e setor de atividade (CNAE 2.0); (iv) cálculo de taxas per mil habitantes; e (v) construção de série temporal.
 
 É fundamental ressaltar que a RAIS registra vínculos empregatícios, não indivíduos. Um mesmo trabalhador pode ter múltiplos vínculos simultâneos (emprego principal e secundário), o que implica que o número total de vínculos pode ser superior ao número de trabalhadores distintos. No entanto, para análises agregadas de municípios, essa distinção não afeta substancialmente os resultados, uma vez que a proporção de vínculos múltiplos é relativamente baixa entre trabalhadores de baixa qualificação (Menezes Filho & Scorzafave, 2009).
 
@@ -108,7 +108,7 @@ Para o presente estudo, foram utilizados os arquivos da RAIS correspondentes aos
 
 O SIH/SUS registra todas as internações hospitalares financiadas pelo SUS, com cobertura próxima à universalidade para procedimentos hospitalares. Os dados são disponibilizados pelo DataSUS em formato DBC (compressão proprietária do IBGE), convertidos para DBF e posteriormente para Parquet.
 
-Para o estudo, foram processados os arquivos RD (AIH Reduzida) de todos os anos de competência de 2018 a 2025 (parcial), filtrados para o estado de Santa Catarina e nacionalidade Venezuela (código '092' no campo `NACIONAL`). O processamento incluiu: (i) conversão dos arquivos DBC para formato tabular; (ii) filtragem por nacionalidade; (iii) classificação dos diagnósticos principais segundo o capítulo do CID-10; (iv) agregação por município de residência, ano e capítulo CID; e (v) cálculo de indicadores de morbidade e custo.
+Para o estudo, foram processados os arquivos RD (AIH Reduzida) de todos os anos de competência de 2018 a 2025 (parcial), filtrados para o estado de Santa Catarina e nacionalidade Venezuela (código '26' no campo `NACIONAL`, padrão MTE/RAIS). O processamento incluiu: (i) conversão dos arquivos DBC para formato tabular; (ii) filtragem por nacionalidade; (iii) classificação dos diagnósticos principais segundo o capítulo do CID-10; (iv) agregação por município de residência, ano e capítulo CID; e (v) cálculo de indicadores de morbidade e custo.
 
 #### 3.1.3. Dados cartográficos
 
@@ -178,33 +178,33 @@ A evolução temporal revela também uma progressiva equidade de gênero. Em 201
 
 #### 4.1.2. Distribuição espacial e concentração municipal
 
-Em 2024, os 40.420 vínculos de venezuelanos estavam distribuídos em 104 dos 109 municípios da região, com concentração marcadamente desigual. Chapecó, o principal polo urbano e econômico da região, concentrava 16.177 vínculos (40% do total regional), seguida por Guatambú (2.583), Concórdia (2.672), Seara (2.123) e São Miguel do Oeste (2.077) (Tabela 3).
+Em 2024, os 40.420 vínculos de venezuelanos estavam distribuídos em 104 dos 109 municípios da região, com concentração marcadamente desigual. Chapecó, o principal polo urbano e econômico da região, concentrava 16.177 vínculos (40% do total regional), seguida por Concórdia (2.672), Guatambú (2.583), Seara (2.123) e São Miguel do Oeste (2.077) (Tabela 3).
 
 **Tabela 3. Top 15 municípios da Região Intermediária de Chapecó por número de vínculos de venezuelanos, 2024**
 
 | Posição | Município | População (2024) | Vínculos | % regional | Taxa per mil |
 |---------|-----------|------------------|----------|------------|--------------|
-| 1 | Chapecó | 275.959 | 16.177 | 40,0 | 58,6 |
-| 2 | Guatambú | 9.267 | 2.583 | 6,4 | 278,7 |
-| 3 | Concórdia | 85.912 | 2.672 | 6,6 | 31,1 |
-| 4 | Seara | 19.241 | 2.123 | 5,3 | 110,3 |
-| 5 | São Miguel do Oeste | 46.947 | 2.077 | 5,1 | 44,2 |
-| 6 | Itapiranga | 17.149 | 1.921 | 4,8 | 112,0 |
-| 7 | Pinhalzinho | 19.883 | 1.987 | 4,9 | 99,9 |
-| 8 | Capinzal | 21.547 | 1.654 | 4,1 | 76,8 |
-| 9 | Nova Erechim | 5.408 | 435 | 1,1 | 80,4 |
-| 10 | Herval d'Oeste | 23.476 | 1.098 | 2,7 | 46,8 |
-| 11 | Saudades | 7.854 | 1.298 | 3,2 | 165,3 |
-| 12 | Águas de Chapecó | 6.421 | 987 | 2,4 | 153,7 |
-| 13 | Quilombo | 9.876 | 876 | 2,2 | 88,7 |
-| 14 | Campos Novos | 34.567 | 843 | 2,1 | 24,4 |
-| 15 | Zortéa | 3.012 | 765 | 1,9 | 254,0 |
+| 1 | Chapecó | 275,959 | 16,177 | 40.0 | 58.6 |
+| 2 | Concórdia | 85,982 | 2,672 | 6.6 | 31.1 |
+| 3 | Guatambú | 9,267 | 2,583 | 6.4 | 278.7 |
+| 4 | Seara | 19,241 | 2,123 | 5.3 | 110.3 |
+| 5 | São Miguel do Oeste | 46,969 | 2,077 | 5.1 | 44.2 |
+| 6 | Itapiranga | 17,149 | 1,921 | 4.8 | 112.0 |
+| 7 | Pinhalzinho | 23,379 | 1,349 | 3.3 | 57.7 |
+| 8 | Maravilha | 30,155 | 1,180 | 2.9 | 39.1 |
+| 9 | Capinzal | 24,176 | 1,103 | 2.7 | 45.6 |
+| 10 | Xaxim | 33,902 | 1,047 | 2.6 | 30.9 |
+| 11 | São Lourenço do Oeste | 25,770 | 932 | 2.3 | 36.2 |
+| 12 | Joaçaba | 31,509 | 880 | 2.2 | 27.9 |
+| 13 | Quilombo | 11,359 | 631 | 1.6 | 55.6 |
+| 14 | Saudades | 10,680 | 593 | 1.5 | 55.5 |
+| 15 | Xanxerê | 54,194 | 589 | 1.5 | 10.9 |
 
-A análise da taxa de vínculos por mil habitantes revela um padrão particularmente revelador. Enquanto Chapecó concentra o maior volume absoluto, sua taxa (58,6 per mil) é modesta em comparação com municípios de pequeno porte como Guatambú (278,7 per mil), Zortéa (254,0 per mil), Saudades (165,3 per mil) e Águas de Chapecó (153,7 per mil). Esse padrão inverte a lógica esperada de concentração em grandes centros urbanos, sugerindo que a migração venezuelana no Oeste catarinense está profundamente vinculada à demanda por mão de obra em empreendimentos específicos — provavelmente frigoríficos, cooperativas agrícolas e indústrias de médio porte — localizados em municípios de pequeno e médio porte.
+A análise da taxa de vínculos por mil habitantes revela um padrão particularmente revelador. Enquanto Chapecó concentra o maior volume absoluto, sua taxa (58,6 per mil) é modesta em comparação com municípios de pequeno porte como Guatambú (278,7 per mil), Itapiranga (112,0 per mil), Seara (110,3 per mil) e Pinhalzinho (57,7 per mil). Esse padrão inverte a lógica esperada de concentração em grandes centros urbanos, sugerindo que a migração venezuelana no Oeste catarinense está profundamente vinculada à demanda por mão de obra em empreendimentos específicos — provavelmente frigoríficos, cooperativas agrícolas e indústrias de médio porte — localizados em municípios de pequeno e médio porte.
 
 A análise espacial dos mapas coropléticos evidencia três zonas de concentração (Figura 1). A primeira corresponde ao eixo Chapecó-Concórdia-Seara, caracterizado por intensa atividade agroindustrial e presença de grandes frigoríficos. A segunda corresponde ao extremo-oeste, com destaque para Guatambú, Itapiranga e São Miguel do Oeste, área de expansão recente do agronegócio e de instalação de novas unidades processadoras de carnes. A terceira corresponde a municípios isolados com taxas particularmente elevadas (Zortéa, Nova Erechim), possivelmente explicados pela presença de um ou poucos grandes empregadores.
 
-A correlação entre população municipal e número de vínculos de venezuelanos é forte e positiva (R² = 0,912; p < 0,001), indicando que, em termos gerais, municípios mais populosos tendem a absorver mais trabalhadores venezuelanos. No entanto, a análise dos resíduos revela múltiplos outliers positivos — municípios cuja presença de venezuelanos é substancialmente superior ao predito pela população —, incluindo Guatambú, Zortéa, Seara e Itapiranga. Esses municípios constituem casos paradigmáticos de "sobreabsorção" migratória, provavelmente associada à presença de grandes empreendimentos agroindustriais.
+A correlação entre população municipal e número de vínculos de venezuelanos é forte e positiva (R² = 0,912; p < 0,001), indicando que, em termos gerais, municípios mais populosos tendem a absorver mais trabalhadores venezuelanos. No entanto, a análise dos resíduos revela múltiplos outliers positivos — municípios cuja presença de venezuelanos é substancialmente superior ao predito pela população —, incluindo Guatambú, Itapiranga, Seara e Saudades. Esses municípios constituem casos paradigmáticos de "sobreabsorção" migratória, provavelmente associada à presença de grandes empreendimentos agroindustriais.
 
 #### 4.1.3. Evolução espacial temporal (2018-2024)
 
@@ -218,55 +218,55 @@ O bar chart race dos 15 principais municípios por volume acumulado de vínculos
 
 #### 4.2.1. Perfil etário e de gênero
 
-O perfil etário dos trabalhadores venezuelanos na RAIS é marcadamente concentrado em idades economicamente ativas. Aproximadamente 70% dos vínculos concentram-se na faixa de 25 a 49 anos, com picos nas faixas 25-29 (25,0%) e 40-49 (29,5%). Em contraste com a população total da região — cuja distribuição etária reflete uma pirâmide clássica com base alargada —, o perfil dos venezuelanos assemelha-se a uma "pirâmide invertida", com escassez de jovens (0,8% em 18-24 anos) e praticamente nenhum registro de adolescentes (14-17 anos) e idosos (65+ anos = 0,2%).
+O perfil etário dos trabalhadores venezuelanos na RAIS é marcadamente concentrado em idades economicamente ativas. Aproximadamente 51% dos vínculos concentram-se na faixa de 18 a 39 anos, com destaque para 18-24 anos (17,8%), 30-39 anos (19,5%) e 25-29 anos (13,6%). A faixa 40-49 anos concentra 11,0% dos vínculos. Em conjunto, 44% dos vínculos estão na faixa de 25 a 49 anos. Em contraste com a população total da região — cuja distribuição etária reflete uma pirâmide clássica com base alargada —, o perfil dos venezuelanos assemelha-se a uma "pirâmide invertida", com escassez de adolescentes (0,6% em 15-17 anos) e praticamente nenhum registro de idosos (65+ anos = 0,1%).
 
 Esse perfil confirma o caráter essencialmente laboral da migração venezuelana na região. Trata-se de adultos jovens em idade produtiva máxima que migram para trabalhar. A ausência de adolescentes e idosos nos dados da RAIS reflete tanto a restrição legal do trabalho infantil quanto a baixa probabilidade de idosos conseguirem inserção no mercado de trabalho formal.
 
-O índice de concentração etária — calculado como a razão entre a proporção de venezuelanos em cada faixa etária e a proporção da população total na mesma faixa — evidencia a super-representação da faixa 25-29 anos (1,5× a população local) e a sub-representação das faixas 14-17 (0,0×), 18-24 (0,1×) e 65+ (0,0×).
+O índice de concentração etária — calculado como a razão entre a proporção de venezuelanos em cada faixa etária e a proporção da população total na mesma faixa — evidencia a super-representação da faixa 18-24 anos e a sub-representação das faixas 14-17, 50-64 e 65+.
 
 É fundamental ressaltar, no entanto, que este perfil etário refere-se exclusivamente aos trabalhadores formais. A população venezuelana residente na região certamente inclui crianças, adolescentes e idosos que acompanham as unidades familiares migrantes, mas que não são capturados pela RAIS. A produção de um perfil etário completo demandaria os microdados do Censo Demográfico 2022, que ainda não foram divulgados pelo IBGE.
 
 #### 4.2.2. Setores de atividade e ocupações
 
-A análise dos setores de atividade econômica e das ocupações dos trabalhadores venezuelanos na RAIS confirma a hipótese de inserção predominantemente em atividades ligadas ao agronegócio e à agroindústria. A indústria de produtos de carne (CNAE 1012) — que compreende frigoríficos, abatedouros e unidades de processamento de carnes — concentra 25,3% dos vínculos de 2023-2024, tornando-se o setor de atividade mais importante para a população venezuelana na região. Em segundo lugar, observa-se o comércio varejista em supermercados (CNAE 4711), com 5,9%, seguido por restaurantes e lanchonetes (CNAE 5611), com 4,7%, e construção de edifícios (CNAE 4120), com 3,9% (Tabela 6).
+A análise dos setores de atividade econômica e das ocupações dos trabalhadores venezuelanos na RAIS confirma a hipótese de inserção predominantemente em atividades ligadas ao agronegócio e à agroindústria. A indústria de produtos de carne (CNAE 1012) — que compreende frigoríficos, abatedouros e unidades de processamento de carnes — concentra 32,9% dos vínculos de 2018-2024, tornando-se o setor de atividade mais importante para a população venezuelana na região. Em segundo lugar, observa-se o comércio varejista em supermercados (CNAE 4711), com 5,9%, seguido por restaurantes e lanchonetes (CNAE 5611), com 4,7%, e construção de edifícios (CNAE 4120), com 3,9% (Tabela 6).
 
-**Tabela 6. Principais setores de atividade econômica (CNAE) dos trabalhadores venezuelanos na Região Intermediária de Chapecó, 2023-2024**
+**Tabela 6. Principais setores de atividade econômica (CNAE) dos trabalhadores venezuelanos na Região Intermediária de Chapecó, 2018-2024**
 
 | Posição | CNAE | Descrição | N | % |
 |---------|------|-----------|---|---|
-| 1 | 1012 | Fabricação de produtos de carne (frigoríficos) | 38.525 | 25,3 |
-| 2 | 4711 | Comércio varejista em supermercados | 8.914 | 5,9 |
-| 3 | 5611 | Restaurantes e lanchonetes | 7.160 | 4,7 |
-| 4 | 4120 | Construção de edifícios | 5.997 | 3,9 |
-| 5 | 8121 | Serviços de limpeza | 4.131 | 2,7 |
-| 6 | 7820 | Agenciamento de mão de obra | 3.988 | 2,6 |
-| 7 | 1412 | Fabricação de artigos de vestuário | 3.154 | 2,1 |
-| 8 | 2451 | Metalurgia do ferro e do aço | 2.709 | 1,8 |
-| 9 | 4930 | Transporte rodoviário de carga | 2.189 | 1,4 |
-| 10 | 5510 | Hotéis e similares | 2.072 | 1,4 |
+| 1 | 1012 | Fabricação de produtos de carne (frigoríficos) | 34.086 | 32,9 |
+| 2 | 10121 | Abate de bovinos, suínos e aves | 18.009 | 17,4 |
+| 3 | 4711 | Comércio varejista em supermercados | 2.926 | 2,8 |
+| 4 | 4120 | Construção de edifícios | 2.367 | 2,3 |
+| 5 | 41204 | Incorporação de empreendimentos imobiliários | 1.343 | 1,3 |
+| 6 | 5611 | Restaurantes e lanchonetes | 1.323 | 1,3 |
+| 7 | 1412 | Fabricação de artigos de vestuário | 1.298 | 1,3 |
+| 8 | 4789 | Comércio varejista de outros produtos | 1.251 | 1,2 |
+| 9 | 3101 | Fabricação de móveis | 1.198 | 1,2 |
+| 10 | 8121 | Serviços de limpeza | 1.194 | 1,2 |
 
-A concentração em frigoríficos é particularmente reveladora. O setor de processamento de carnes no Oeste catarinense — dominado por grandes corporações nacionais e multinacionais — é historicamente dependente de mão de obra de baixa qualificação, com alta rotatividade, jornadas extensas e condições insalubres (Farinelli, 2019; Marques & Góes, 2022). A presença massiva de venezuelanos nesse setor (38.525 vínculos em 2023-2024, dos quais 23.802 homens e 17.499 mulheres) sugere que esses trabalhadores estão ocupando posições historicamente desfavorecidas no mercado de trabalho regional, reproduzindo padrões de segmentação ocupacional por nacionalidade observados em outros contextos migratórios (Cano, 2020).
+A concentração em frigoríficos é particularmente reveladora. O setor de processamento de carnes no Oeste catarinense — dominado por grandes corporações nacionais e multinacionais — é historicamente dependente de mão de obra de baixa qualificação, com alta rotatividade, jornadas extensas e condições insalubres (Farinelli, 2019; Marques & Góes, 2022). A presença massiva de venezuelanos nesse setor (34.086 vínculos em 2018-2024 no Oeste SC, dos quais 19.759 homens e 14.327 mulheres) sugere que esses trabalhadores estão ocupando posições historicamente desfavorecidas no mercado de trabalho regional, reproduzindo padrões de segmentação ocupacional por nacionalidade observados em outros contextos migratórios (Cano, 2020).
 
-A análise das ocupações (CBO) revela um perfil de baixa qualificação e intensa divisão do trabalho. As três ocupações mais frequentes — alimentador de linha de produção (CBO 7842, 19,8%), ajudante de cozinha/preparador de alimentos (CBO 8485, 14,5%) e mecânico de manutenção (CBO 5143, 6,7%) — configuram um arco ocupacional centrado em atividades operacionais, manuais e de apoio, com escolaridade típica de ensino fundamental incompleto e remuneração abaixo da média regional (Tabela 7).
+A análise das ocupações (CBO) revela um perfil de baixa qualificação e intensa divisão do trabalho. As três ocupações mais frequentes — ajudante de cozinha/preparador de alimentos (CBO 848520, 27,5%), alimentador de linha de produção (CBO 784205, 25,5%) e mecânico de manutenção (CBO 514320, 4,4%) — configuram um arco ocupacional centrado em atividades operacionais, manuais e de apoio, com escolaridade típica de ensino fundamental incompleto e remuneração abaixo da média regional (Tabela 7).
 
-**Tabela 7. Principais ocupações (CBO) dos trabalhadores venezuelanos na Região Intermediária de Chapecó, 2023-2024**
+**Tabela 7. Principais ocupações (CBO) dos trabalhadores venezuelanos na Região Intermediária de Chapecó, 2018-2024**
 
 | Posição | CBO | Descrição | N | % | Idade média | % Feminino |
 |---------|-----|-----------|---|-----|-------------|------------|
-| 1 | 7842 | Alimentador de linha de produção | 30.133 | 19,8 | 32,1 | 42,3 |
-| 2 | 8485 | Ajudante de cozinha/preparador de alimentos | 22.089 | 14,5 | 30,9 | 58,1 |
-| 3 | 5143 | Mecânico de manutenção de máquinas | 10.268 | 6,7 | 36,8 | 8,5 |
-| 4 | 5211 | Soldador | 7.676 | 5,0 | 29,5 | 4,2 |
-| 5 | 4141 | Almoxarife/auxiliar administrativo | 5.876 | 3,9 | 30,8 | 35,6 |
-| 6 | 7170 | Operador de máquinas de construção civil | 5.445 | 3,6 | 33,9 | 2,1 |
-| 7 | 5135 | Eletricista de manutenção | 5.074 | 3,3 | 33,3 | 3,8 |
-| 8 | 7832 | Motorista de caminhão | 3.990 | 2,6 | 31,5 | 1,9 |
-| 9 | 5134 | Mecânico de refrigeração | 3.650 | 2,4 | 27,8 | 5,2 |
-| 10 | 4211 | Atendente de lojas e mercados | 3.485 | 2,3 | 29,6 | 62,4 |
+| 1 | 848520 | Ajudante de cozinha/preparador de alimentos | 28.425 | 27,5 | 30,8 | 41,9 |
+| 2 | 784205 | Alimentador de linha de produção | 26.391 | 25,5 | 32,0 | 39,0 |
+| 3 | 514320 | Mecânico de manutenção de máquinas | 4.510 | 4,4 | 35,4 | 59,8 |
+| 4 | 717020 | Operador de máquinas de construção civil | 3.195 | 3,1 | 34,9 | 4,6 |
+| 5 | 521125 | Soldador | 1.823 | 1,8 | 29,7 | 33,7 |
+| 6 | 513505 | Eletricista de manutenção | 1.490 | 1,4 | 33,4 | 73,4 |
+| 7 | 862150 | Carpinteiro | 1.384 | 1,3 | 32,5 | 11,6 |
+| 8 | 391205 | Auxiliar de escritório | 1.352 | 1,3 | 30,3 | 62,1 |
+| 9 | 421125 | Atendente de lojas e mercados | 1.341 | 1,3 | 28,4 | 84,3 |
+| 10 | 848515 | Auxiliar de cozinha | 1.299 | 1,3 | 30,2 | 49,6 |
 
 A distribuição por gênero nas ocupações revela padrões de segmentação consistentes com a literatura sobre mercado de trabalho e migração. Ocupações de linha de produção em frigoríficos (CBO 7842) e de manutenção mecânica (CBO 5143) apresentam forte predominância masculina, enquanto atividades de preparação de alimentos (CBO 8485) e atendimento comercial (CBO 4211) concentram proporções mais elevadas de mulheres. A idade média dos trabalhadores varia entre 27,8 anos (mecânico de refrigeração) e 36,8 anos (mecânico de manutenção), confirmando o perfil de adultos jovens em idade produtiva.
 
-A combinação de setor (frigoríficos) e ocupação (alimentador de linha de produção) configura uma posição ocupacional particularmente precária: trabalho repetitivo, em ambientes frios e úmidos, com exposição a ruído e riscos biológicos, baixa remuneração e alta rotatividade. A magnitude dessa inserção — quase 40 mil venezuelanos em frigoríficos apenas em SC, dos quais mais de 20 mil na região de estudo — demanda atenção das políticas de saúde do trabalhador, fiscalização do Ministério do Trabalho e sindicatos da categoria, uma vez que condições de superexploração laboral podem gerar externalidades sanitárias e sociais de longo prazo.
+A combinação de setor (frigoríficos) e ocupação (alimentador de linha de produção) configura uma posição ocupacional particularmente precária: trabalho repetitivo, em ambientes frios e úmidos, com exposição a ruído e riscos biológicos, baixa remuneração e alta rotatividade. A magnitude dessa inserção — quase 35 mil venezuelanos em frigoríficos apenas no Oeste SC, dos quais mais de 20 mil na região de estudo — demanda atenção das políticas de saúde do trabalhador, fiscalização do Ministério do Trabalho e sindicatos da categoria, uma vez que condições de superexploração laboral podem gerar externalidades sanitárias e sociais de longo prazo.
 
 Por fim, observa-se uma presença significativa de venezuelanos em serviços de apoio urbano: supermercados (5,9%), restaurantes (4,7%), limpeza (2,7%), hotéis (1,4%) e transporte (1,4%). Essa diversificação setorial, embora modesta em comparação com a concentração em frigoríficos, sugere que a população venezuelana na região não está restrita a um único nicho ocupacional, mas participa de múltiplos segmentos do mercado de trabalho de baixa qualificação, configurando uma inserção econômica mais difusa do que inicialmente suposto.
 
@@ -440,7 +440,7 @@ Santos, L. R., & Silva, M. F. (2023). Acesso à saúde de migrantes venezuelanos
 
 ### NM1. Processamento dos dados da RAIS
 
-Os arquivos da RAIS foram obtidos através do portal público do Ministério do Trabalho e Emprego (https://bi.mte.gov.br/bi/). Os arquivos dos anos 2018 a 2022 utilizam formato `.txt` com delimitador `;`. Os arquivos de 2023 e 2024 utilizam formato `.COMT` com delimitador `,` e nomenclatura de colunas expandida (incluindo sufixos " - Código" e " - Descrição"). O filtro de nacionalidade Venezuela foi aplicado utilizando o código '092' no campo `NACIONAL` (2018-2022) ou `Nacionalidade` (2023-2024).
+Os arquivos da RAIS foram obtidos através do portal público do Ministério do Trabalho e Emprego (https://bi.mte.gov.br/bi/). Os arquivos dos anos 2018 a 2022 utilizam formato `.txt` com delimitador `;`. Os arquivos de 2023 e 2024 utilizam formato `.COMT` com delimitador `,` e nomenclatura de colunas expandida (incluindo sufixos " - Código" e " - Descrição"). O filtro de nacionalidade Venezuela foi aplicado utilizando o código '26' no campo `NACIONAL` (2018-2022) ou `Nacionalidade` (2023-2024), conforme tabela oficial do Ministério do Trabalho.
 
 ### NM2. Processamento dos dados do SIH/SUS
 
