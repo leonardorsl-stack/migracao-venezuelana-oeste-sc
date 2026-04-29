@@ -1,0 +1,125 @@
+======================================================================
+RELATÓRIO: TOP CIDs E MUNICÍPIOS — OESTE DE SANTA CATARINA
+Projeto: migração venezuelana na Região Intermediária de Chapecó
+Fonte: SIH/SUS (2018-2025)
+======================================================================
+
+Total de internações no Oeste SC: 7,696
+Municípios do Oeste com registros: 70
+CIDs distintos: 1265
+
+----------------------------------------------------------------------
+TOP 20 CIDs (DIAG_PRINC) — FREQUÊNCIA ABSOLUTA
+----------------------------------------------------------------------
+ 1. O800       931 internações  (12.10%)
+ 2. O809       389 internações  ( 5.05%)
+ 3. O829       208 internações  ( 2.70%)
+ 4. O334       187 internações  ( 2.43%)
+ 5. Z302       170 internações  ( 2.21%)
+ 6. J189       132 internações  ( 1.72%)
+ 7. K359       116 internações  ( 1.51%)
+ 8. O342       106 internações  ( 1.38%)
+ 9. K409        96 internações  ( 1.25%)
+10. N390        95 internações  ( 1.23%)
+11. O021        82 internações  ( 1.07%)
+12. O619        69 internações  ( 0.90%)
+13. J180        63 internações  ( 0.82%)
+14. K35         59 internações  ( 0.77%)
+15. J353        59 internações  ( 0.77%)
+16. J159        53 internações  ( 0.69%)
+17. D259        49 internações  ( 0.64%)
+18. O820        49 internações  ( 0.64%)
+19. K429        45 internações  ( 0.58%)
+20. J459        43 internações  ( 0.56%)
+
+----------------------------------------------------------------------
+TOP 15 MUNICÍPIOS — FREQUÊNCIA ABSOLUTA
+----------------------------------------------------------------------
+ 1. Chapecó                   (420420)  3640 internações  (47.30%)
+ 2. Seara                     (421750)   578 internações  ( 7.51%)
+ 3. Concórdia                 (420430)   428 internações  ( 5.56%)
+ 4. Itapiranga                (420840)   403 internações  ( 5.24%)
+ 5. São Miguel do Oeste       (421720)   379 internações  ( 4.92%)
+ 6. Pinhalzinho               (421290)   263 internações  ( 3.42%)
+ 7. Capinzal                  (420390)   198 internações  ( 2.57%)
+ 8. Saudades                  (421730)   189 internações  ( 2.46%)
+ 9. Guatambú                  (420665)   172 internações  ( 2.23%)
+10. São Lourenço do Oeste     (421690)   133 internações  ( 1.73%)
+11. Quilombo                  (421420)   118 internações  ( 1.53%)
+12. Águas de Chapecó          (420050)    94 internações  ( 1.22%)
+13. Herval d'Oeste            (420670)    73 internações  ( 0.95%)
+14. Campos Novos              (420360)    72 internações  ( 0.94%)
+15. Zortéa                    (421985)    66 internações  ( 0.86%)
+
+----------------------------------------------------------------------
+COMPOSIÇÃO POR CAPÍTULO CID (Top 10 municípios, % do município)
+----------------------------------------------------------------------
+capitulo               I.   Infecções/parasitárias  II.  Neoplasias  III. Sangue/Imunológicas  IV.  Endócrinas  IX.  Respiratório  V.   Mentais  VI.  Nervoso  VII. Olho/Ouvido  VIII. Circulatório  X.   Digestivo  XI.  Pele  XII. Osteomuscular  XIII. Geniturinário  XIV. Gravidez/Parto  XV.  Perinatal  XVI. Malformações  XVII. Sintomas/Lab  XVIII. Trauma (S)  XVIII. Trauma (T)  XX.  Contato saúde
+Chapecó                                         71              235                       109               29                220            15            41                35                  83             318         41                  69                  260                 1484               5                 25                 124                285                 48                 143
+Seara                                           40               35                        15                3                106             0             9                 5                  14              55         12                   5                   55                  161              14                  5                   8                 24                  6                   6
+Concórdia                                       17               12                         6                4                 40             4             0                 7                  16              42          6                   3                   36                  152              21                  1                   8                 33                 10                  10
+Itapiranga                                       4               21                        18                2                 41             2             5                 1                  12              43          5                  23                   45                  118               7                  1                   7                 27                  6                  15
+São Miguel do Oeste                             14               14                         2               14                 33             2             7                 1                  15              43          5                   8                   12                  138              13                  2                   4                 25                  9                  18
+Pinhalzinho                                      3                7                        13                0                 16             1             8                 1                  13              41          7                   1                   21                  100               2                  1                   5                 14                  3                   6
+Capinzal                                         5                2                         3                0                 32             0             0                 2                   8              26          1                   1                   22                   67               1                  2                   4                 11                  2                   9
+Saudades                                         8                5                        10                0                  8             0             3                 5                   4              19          1                   3                   27                   64               4                  4                   2                  9                  0                  13
+Guatambú                                         6               11                         3                2                 12             0             2                 2                   5              19          2                   1                    6                   70               0                  0                   6                 13                  3                   9
+São Lourenço do Oeste                            6                1                         1                0                 11             2             4                 2                   3              20          4                   0                   11                   54               1                  3                   4                  1                  3                   2
+
+----------------------------------------------------------------------
+EVOLUÇÃO TEMPORAL — TOP 5 CIDs (2018-2025)
+----------------------------------------------------------------------
+
+O800:
+  2018: 0
+  2019: 0
+  2020: 7
+  2021: 47
+  2022: 112
+  2023: 197
+  2024: 249
+  2025: 319
+
+O809:
+  2018: 0
+  2019: 1
+  2020: 23
+  2021: 47
+  2022: 64
+  2023: 79
+  2024: 80
+  2025: 95
+
+O829:
+  2018: 0
+  2019: 0
+  2020: 0
+  2021: 8
+  2022: 14
+  2023: 19
+  2024: 54
+  2025: 113
+
+O334:
+  2018: 0
+  2019: 1
+  2020: 8
+  2021: 28
+  2022: 40
+  2023: 50
+  2024: 26
+  2025: 34
+
+Z302:
+  2018: 0
+  2019: 0
+  2020: 1
+  2021: 4
+  2022: 4
+  2023: 11
+  2024: 63
+  2025: 87
+
+======================================================================
+FIM DO RELATÓRIO
+======================================================================
