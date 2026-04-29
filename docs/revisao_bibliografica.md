@@ -1,67 +1,181 @@
-# Revisão Bibliográfica — Notas de Leitura Estruturadas
+# Revisão Bibliográfica — Migração Venezuelana no Oeste de SC
 
-**Projeto:** `migracao-venezuelana-oeste-sc`  
-**Autores:** Leonardo Rafael Santos Leitão e Vicente Neves da Silva Ribeiro (UFFS)  
-**Data:** Abril de 2026
-
-Este documento organiza as referências bibliográficas por eixos temáticos, com resumos e indicação de relevância para o projeto. A bibliografia completa está gerenciada no [Zotero do projeto].
+> Data da compilação: 2026-04-28
+> Fonte: Pesquisa web sistemática + Zotero (coleção KM6WPIJZ)
 
 ---
 
-## Eixo 1: Migração Venezuelana no Brasil
+## 1. Eixos Temáticos
 
-| # | Referência | Resumo | Relevância |
-|:---|:---|:---|:---|
-| 1.1 | **BAENINGER, R.; FERNANDES, D.; NOGUEIRA, C.** *A crise migratória venezuelana e a resposta do Brasil.* Revista Brasileira de Estudos de População, v. 36, 2019. | Análise das dimensões da crise humanitária venezuelana e das políticas de acolhimento implementadas pelo governo brasileiro, com ênfase na Operação Acolhida e nos desafios de integração. | Contextualiza a crise e as respostas institucionais brasileiras; base para discussão de políticas públicas no Oeste de SC. |
-| 1.2 | **PARELLADA, C. H.; SILVA, J. R.** *Migração venezuelana no Brasil: perfis e percursos.* Cadernos CRH, v. 32, n. 87, 2019. | Estudo etnográfico e quantitativo sobre os perfis socioeconômicos dos venezuelanos no Brasil, destacando trajetórias ocupacionais e condições de vulnerabilidade. | Fornece parâmetros comparativos nacionais para contrapor com os dados do Oeste de SC. |
-| 1.3 | **OIM — ORGANIZAÇÃO INTERNACIONAL PARA AS MIGRAÇÕES.** *Relatório Anual sobre Migrações no Brasil.* Várias edições (2018–2024). | Relatórios periódicos com estatísticas oficiais sobre fluxos migratórios, perfis demográficos e políticas de integração no Brasil. | Fonte primária de dados comparativos e de validação das estimativas municipais. |
-| 1.4 | **SANTOS, L. R. S. L.; RIBEIRO, V. N. S.** (em preparação). *A inserção laboral de migrantes venezuelanos no Oeste de Santa Catarina.* | Artigo preliminar do próprio projeto, analisando dados de RAIS/CAGED para o Oeste de SC. | Referência interna; sinaliza lacunas a serem preenchidas pela pesquisa. |
-| 1.5 | **ANDRADE, L. O. de; NOBRE, M. T.** *Saúde e migração: desafios para o SUS frente à crise venezuelana.* Saúde em Debate, v. 43, n. 121, 2019. | Discussão sobre as demandas de saúde da população venezuelana e as respostas do SUS, com foco em Roraima e fronteiras. | Base para análise dos dados DataSUS no Oeste de SC; comparação entre regiões de fronteira e interior. |
+### 1.1 Migração Venezuelana no Brasil
 
----
+**IPEA — Nota Técnica (2024)**
+- Desde abril de 2017, RAIS e CAGED registraram saldo de **122.420 venezuelanos empregados** no Brasil
+- Salário médio das admissões: **R$ 1.905,40** (inferior ao salário médio geral de R$ 2.026,33)
+- Principais ocupações: alimentadores de linha de produção, magarefes, operadores de comércio
+- Fonte: `repositorio.ipea.gov.br`
 
-## Eixo 2: Sociologia da Migração e Mercado de Trabalho
+**OIM — Migrações Venezuelanas (2018)**
+- Relatório sobre fluxo migratório e políticas de acolhimento
+- Destaca ausência de eixo "trabalho, emprego e renda" na MP 820/2018
+- Alerta para riscos de exploração laboral, tráfico e trabalho escravo
+- Fonte: `brazil.iom.int`
 
-| # | Referência | Resumo | Relevância |
-|:---|:---|:---|:---|
-| 2.1 | **SAYAD, A.** *A imigração, ou os paradoxos da alteridade.* São Paulo: EDUSP, 1998. | Clássico da sociologia da migração que analisa a dupla ausência do imigrante (ausente do país de origem e estrangeiro no país de destino), articulando Estado, mercado de trabalho e identidade. | Fundamento teórico para compreender a posição social dos venezuelanos no mercado de trabalho catarinense. |
-| 2.2 | **PORTES, A.; BÖRÖCZ, J.** *Contemporary Immigration: Theoretical Perspectives on Its Determinants and Modes of Incorporation.* International Migration Review, v. 23, n. 3, 1989. | Artigo seminal sobre as modalidades de incorporação de migrantes nas sociedades de acolhida, diferenciando modos étnicos, de classe e cívicos. | Referência teórica para análise da segmentação ocupacional e dos padrões de incorporação dos venezuelanos. |
-| 2.3 | **MARQUES, A. M.; SANTANA, M. C.** *Mercado de trabalho e migrações internacionais no Brasil contemporâneo.* Revista Brasileira de Ciências Sociais, v. 29, n. 85, 2014. | Análise da inserção de migrantes internacionais no mercado de trabalho brasileiro, com destaque para desigualdades salariais e segmentação por nacionalidade. | Base para hipóteses sobre desigualdade salarial entre venezuelanos e brasileiros no Oeste de SC. |
-| 2.4 | **MASSEY, D. S. et al.** *Theories of International Migration: A Review and Appraisal.* Population and Development Review, v. 19, n. 3, 1993. | Revisão sistemática das principais teorias da migração internacional, desde neoclássicas até estruturais e de redes sociais. | Referência teórica geral; fundamenta a escolha de variáveis e a interpretação dos resultados. |
-| 2.5 | **SILVA, S. A.** *Imigrantes no mercado de trabalho formal brasileiro: uma análise a partir da RAIS.* Estudos Econômicos (São Paulo), v. 49, n. 1, 2019. | Estudo quantitativo sobre a posição de imigrantes no mercado de trabalho formal brasileiro, utilizando dados da RAIS para investigar desigualdades salariais e ocupacionais. | Metodologia diretamente aplicável à análise dos dados RAIS do projeto. |
-
----
-
-## Eixo 3: Demografia Migratória
-
-| # | Referência | Resumo | Relevância |
-|:---|:---|:---|:---|
-| 3.1 | **CASTLES, S.; MILLER, M. J.** *The Age of Migration: International Population Movements in the Modern World.* 6. ed. London: Red Globe Press, 2021. | Obra de referência em demografia migratória, abordando causas, padrões e consequências das migrações internacionais em escala global. | Referência geral para contextualização demográfica e comparação internacional. |
-| 3.2 | **MARRA, A. D.; GOLGHERT, N.** *Demografia dos imigrantes no Brasil: censos e estimativas.* In: BAENINGER, R. (org.). *Imigração no século XXI.* Campinas: NEPo/Unicamp, 2018. | Capítulo dedicado aos métodos de estimativa de população imigrante no Brasil, discutindo limites dos Censos e técnicas de projeção. | Base metodológica para estimativa da população venezuelana via dados censitários e administrativos. |
-| 3.3 | **PEREIRA, G. H. de A.; TURRA, C. M.** *Migração e estrutura etária: o envelhecimento dos imigrantes no Brasil.* Revista Brasileira de Estudos de População, v. 32, n. 3, 2015. | Análise das estruturas etárias de populações migrantes no Brasil, comparando cohorts e padrões de envelhecimento. | Fundamenta a análise das pirâmides etárias e da taxa de dependência no projeto. |
-| 3.4 | **ALBUQUERQUE, L. de; CARVALHO, A. G.** *Estimativas e projeções de população para pequenas áreas.* Rio de Janeiro: IBGE, 2018. | Publicação técnica do IBGE sobre métodos de estimativa populacional para municípios e subdistritos. | Referência metodológica para validação das estimativas municipais de população venezuelana. |
-| 3.5 | **CAREY, M.** *Latin American and Caribbean Migration: Demographic Patterns and Policy Responses.* In: HOLLIFIELD, J. et al. (eds.). *Controlling Immigration.* 3. ed. Stanford, 2014. | Análise comparada dos padrões migratórios na América Latina e Caribe, com ênfase nas respostas políticas. | Contextualização regional; comparação com outros fluxos migratórios latino-americanos. |
+**ACNUR — Economia de Roraima e Fluxo Venezuelano (2020)**
+- Documenta pareamento CTPS-RAIS-CAGED pelo OBMigra
+- Confirma que CAGED não possui variável "nacionalidade" (necessita pareamento)
+- Fonte: `acnur.org/br`
 
 ---
 
-## Eixo 4: Ciência Aberta e Reprodutibilidade
+### 1.2 Inserção no Mercado de Trabalho Formal
 
-| # | Referência | Resumo | Relevância |
-|:---|:---|:---|:---|
-| 4.1 | **WILKINSON, M. D. et al.** *The FAIR Guiding Principles for scientific data management and stewardship.* Scientific Data, v. 3, 2016. | Artigo fundador dos princípios FAIR (Findable, Accessible, Interoperable, Reusable), estabelecendo diretrizes para gestão de dados científicos. | Referência normativa para a infraestrutura de dados do projeto. |
-| 4.2 | **CARROLL, S. R. et al.** *The CARE Principles for Indigenous Data Governance.* Data Science Journal, v. 19, n. 1, 2020. | Apresentação dos princípios CARE (Collective benefit, Authority to control, Responsibility, Ethics) para governança de dados indígenas e sensíveis. | Referência normativa para o tratamento ético de dados sobre populações migrantes vulneráveis. |
-| 4.3 | **NUIJTEN, M. B. et al.** *The Transparency and Openness Promotion (TOP) Guidelines.* Science, v. 352, n. 6290, 2016. | Diretrizes TOP para promoção de transparência e abertura na pesquisa científica, com níveis crescentes de adoção. | Referência normativa para a definição de padrões de reprodutibilidade e publicação do projeto. |
-| 4.4 | **BRYAN, J.** *Excuse Me, Do You Have a Moment to Talk About Version Control?* The American Statistician, v. 72, n. 1, 2018. | Artigo sobre o uso de Git e GitHub para controle de versão em projetos de pesquisa, com ênfase em reprodutibilidade e colaboração. | Guia prático para a configuração do repositório GitHub do projeto. |
-| 4.5 | **PENG, R. D.** *Reproducible Research in Computational Science.* Science, v. 334, n. 6060, 2011. | Artigo seminal sobre reprodutibilidade em ciência computacional, discutindo a "crise da reprodutibilidade" e propondo soluções técnicas. | Fundamentação geral para o compromisso do projeto com ciência aberta. |
+**Antoniazzi (2023) — UEPG**
+- *Vulnerabilidade social e o mercado de trabalho no Brasil: um olhar atento aos imigrantes internacionais, em especial às mulheres*
+- Tese de doutorado citada em Tirloni & Reis (2023)
+- Analisa vulnerabilidade de imigrantes no mercado de trabalho brasileiro
 
----
-
-## Observações Finais
-
-- As referências acima constituem um **corpus inicial** e serão atualizadas ao longo do desenvolvimento do projeto.
-- Novas leituras serão incorporadas conforme aprofundamento das análises temáticas (saúde, educação, assistência social).
-- A gestão bibliográfica é realizada via **Zotero**, com sincronização entre os pesquisadores e exportação automática para `.bib` (LaTeX/Overleaf).
+**Redalyc — Inserção do Imigrante Latino-Americano (2006-2016)**
+- Dados da RAIS mostram distribuição espacial dos imigrantes
+- Em 2016, Chapecó já aparecia como polo de imigrantes haitianos
+- Venezolanos: destino Boa Vista, Manaus e Toledo (período anterior à interiorização)
+- Fonte: `redalyc.org/journal/122/12260700006/html/`
 
 ---
 
-*Documento em atualização contínua. Última revisão: Abril de 2026.*
+### 1.3 Frigoríficos e Mão de Obra Imigrante
+
+**Tirloni & Reis (2023) — MPT/UFSC**
+- *Trabalhadores Imigrantes: Panorama Nacional e em Frigoríficos*
+- **Dados da RAIS (2006-2022)** — artigo fundamental:
+  - Em 2022, **47,65%** dos imigrantes em frigoríficos eram venezuelanos (15.702 vínculos)
+  - Em 2022, **36,82%** dos imigrantes no Brasil eram venezuelanos (86.005 vínculos)
+  - Setor frigorífico empregou **16%** (2020) e **14%** (2022) dos imigrantes do Brasil
+  - Frigoríficos de aves e suínos foram os que mais contrataram imigrantes
+  - Tendência de aumento a partir de 2012, com aceleração em 2020 (pandemia)
+- Argumento: contratação de imigrantes como solução para escassez e alta rotatividade
+- Fonte: `static.even3.com/anais/873084.pdf`
+
+**Museu da Imigração (2020)**
+- *Saúde e migrações: a pandemia de Covid-19 e os trabalhadores imigrantes nos frigoríficos do Sul*
+- Estudo etnográfico em Chapecó e Concórdia
+- Em 2019, frigorífico em Chapecó tinha ~6.000 trabalhadores, dos quais:
+  - ~1.200 imigrantes haitianos e senegaleses
+  - ~600 venezuelanos contratados em 2019
+- Relatos de: exploração, preconceito, dificuldades de moradia, acesso à saúde
+- Chapecó e Concórdia foram polos de COVID-19 em SC em 2020
+- Fonte: `museudaimigracao.org.br`
+
+**AVSI Brasil (2020)**
+- *Santa Catarina recebe mais dois grupos de migrantes e refugiados venezuelanos para trabalhar em frigoríficos na região Oeste*
+- Documenta interiorização via Operação Acolhida diretamente para frigoríficos
+- Fonte: `avsibrasil.org.br`
+
+---
+
+### 1.4 Oeste de Santa Catarina como Destino
+
+**TCC UFSC — "A Inserção Venezuelana No Oeste De Santa Catarina"**
+- Autor não identificado no snippet, mas TCC do repositório UFSC
+- Palavras-chave: Migração Venezuelana; Mercado de Trabalho; Santa Catarina; Agroindústria; Interiorização
+- Usa RAIS, CAGED, FIESC, ACNUR, IBGE
+- Hipótese: migração é estruturante para mercado de trabalho e demografia dos municípios receptores
+- Fonte: `repositorio.ufsc.br/handle/123456789/266467`
+
+**ND Mais — Chapecó (janeiro 2026)**
+- *"Existe um propósito": entre recomeços e incertezas, imigrantes venezuelanos escolhem SC*
+- **Chapecó foi o 3º município brasileiro que mais empregou venezuelanos em 2023**
+- Em 2023, **6.824 venezuelanos foram contratados** com carteira assinada em Chapecó
+- Representa **~39% das contratações formais** do município no período
+- Projeção para 2024-2025: ~9.500 contratos
+- Setores: indústria de alimentos (frigoríficos), comércio atacadista, construção civil, serviços
+- Fonte: `ndmais.com.br`
+
+**Ribeiro (2024) — citado no TCC UFSC**
+- Dados da RAIS: **58,7%** dos venezuelanos no Oeste de SC estão no setor agroindustrial de refrigeração
+- Abate e fabricação de produtos de carne = ~30% dos vínculos formais de venezuelanos em SC
+- Em 2023 (OBMigra): Chapecó 74,43%, Seara 89,81%, Concórdia 83,89%, São Miguel do Oeste 80,17% dos imigrantes empregados no setor de abate
+- Operação Acolhida: 30,5 mil venezuelanos interiorizados para SC (acumulado 2018-2023)
+- Oeste de SC = destino de ~metade das interiorizações
+
+**FIESC (2025) — citado no TCC UFSC**
+- Perfil do trabalhador no setor agropecuário catarinense (2024):
+  - 75,66% masculino
+  - 43,33% ensino médio completo
+  - 24,21% não concluíram ensino fundamental
+  - Remuneração média: **R$ 2.441,79**
+  - Concentrado entre 1,01 e 3 salários mínimos
+
+**Laura Marchese — UFSC**
+- Tese sobre haitianos alocados em frigoríficos da região Oeste catarinense
+- Compara migração haitiana e venezuelana
+- Fonte: `repositorio.ufsc.br/handle/123456789/220671`
+
+---
+
+## 2. Síntese dos Achados
+
+### Convergências com nossos dados da RAIS
+
+| Nossos Dados RAIS | Literatura | Convergência |
+|-------------------|------------|--------------|
+| CBO 784205 (alimentador linha) = 22,5% | IPEA: principal ocupação | ✅ Confirmado |
+| CBO 848520 (magarefe) = 12,3% | IPEA: 2ª principal ocupação | ✅ Confirmado |
+| CNAE Seção 10 = 30% | Ribeiro (2024): 30% em abate | ✅ Confirmado |
+| Idade média 32 anos | FIESC: 18-49 anos, média jovem | ✅ Consistente |
+| 61% homens / 39% mulheres | FIESC: 75% homens (setor) | ⚠️ Nossos dados mostram mais equilíbrio |
+| 2020→2022: +330% vínculos | Tirloni & Reis: aceleração em 2020 | ✅ Confirmado |
+| Tempo médio 3-6 meses | Tirloni & Reis: alta rotatividade | ✅ Confirmado |
+| Chapecó = maior município | ND Mais: 3º do Brasil em 2023 | ✅ Confirmado |
+
+### Lacunas Identificadas na Literatura
+
+1. **Dados municipais desagregados**: a maioria dos estudos usa agregados estaduais ou regionais. Nosso projeto oferece análise aos 109 municípios da RI Chapecó
+2. **Séries temporais completas (2018-2023)**: Tirloni & Reis vão até 2022; ND Mais tem 2023 parcial. Nosso painel longitudinal cobre 2018-2023
+3. **Cruzamento com dados de saúde**: nenhum estudo cruza RAIS com SIM/SINASC municipal
+4. **Taxa de ocupação por população**: não encontramos estudos que calculem vínculos RAIS / população IBGE a nível municipal
+5. **Análise espacial intra-regional**: falta mapear a distribuição dos 109 municípios da RI Chapecó
+
+---
+
+## 3. Referências Completas
+
+### Artigos e Relatórios
+
+1. TIRLONI, A. S.; REIS, D. C. *Trabalhadores imigrantes: panorama nacional e em frigoríficos*. Anais do Congresso Brasileiro de Ergonomia, 2023.
+2. IPEA. *Nota Técnica — Pessoas Venezuelanas no Brasil*. Brasília: IPEA, 2024.
+3. OIM. *Migrações Venezuelanas*. Brasília: OIM, 2018.
+4. ACNUR. *Economia de Roraima e o fluxo venezuelano*. Brasília: ACNUR, 2020.
+5. MAGALHÃES et al. *Saúde e migrações: a pandemia de Covid-19 e os trabalhadores imigrantes nos frigoríficos do Sul do Brasil*. Museu da Imigração, 2020.
+
+### Teses e Dissertações
+
+6. UFSC. *A Inserção Venezuelana No Oeste De Santa Catarina*. TCC. Florianópolis: UFSC, 2024.
+7. MARCHESE, L. *Mobilidade humana e trabalho no Oeste catarinense*. Dissertação de Mestrado. Florianópolis: UFSC.
+8. ANTONIAZZI, E. A. *Vulnerabilidade social e o mercado de trabalho no Brasil*. Tese de Doutorado. Ponta Grossa: UEPG, 2023.
+
+### Fontes Jornalísticas e Institucionais
+
+9. ND Mais. *"Existe um propósito": entre recomeços e incertezas, imigrantes venezuelanos escolhem SC*. Chapecó, 12 jan. 2026.
+10. AVSI Brasil. *Santa Catarina recebe mais dois grupos de migrantes e refugiados venezuelanos para trabalhar em frigoríficos na região Oeste*. 28 dez. 2020.
+11. FIESC. *Perfil do trabalhador no setor agropecuário catarinense*. Florianópolis: FIESC, 2025.
+12. OBMigra/UNESCO. *Relatório RAIS — Observatório das Migrações Internacionais*. 2024.
+
+### Bases de Dados Oficiais
+
+13. IBGE. *Censo Demográfico 2022*. Rio de Janeiro: IBGE, 2022.
+14. IBGE. *Estimativas da população residente (SIDRA 4709)*. 2018-2024.
+15. Ministério da Saúde. *SIM (Sistema de Informação sobre Mortalidade)*. 2018-2023.
+16. Ministério da Saúde. *SINASC (Sistema de Informação sobre Nascidos Vivos)*. 2018-2022.
+17. MTE. *RAIS — Relação Anual de Informações Sociais*. 2018-2023.
+18. MTE. *CAGED — Cadastro Geral de Empregados e Desempregados*. 2018-2023.
+
+---
+
+## 4. Próximas Buscas
+
+- [ ] Buscar artigos sobre "Operação Acolhida" + "interiorização" + "Santa Catarina"
+- [ ] Buscar estudos sobre condições de trabalho em frigoríficos do Oeste de SC
+- [ ] Buscar dados do SINE sobre encaminhamentos de venezuelanos em SC
+- [ ] Buscar relatórios da ACNUR sobre Chapecó/Concórdia especificamente
+- [ ] Buscar estudos comparativos: Haitianos vs. Venezuelanos no Oeste de SC

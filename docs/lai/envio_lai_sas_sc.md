@@ -8,7 +8,7 @@
 ### Opção 1: E-mail institucional direto
 - **Secretaria de Estado da Assistência Social de SC**
   - E-mail geral: sas@sas.sc.gov.br ou gabinete@sas.sc.gov.br
-  - Coordenação de Informação e Avaliação: informacao@sas.sc.gov.br
+  - Coordenação de Informação e Avaliação: <informacao@sas.sc.gov.br>
   - CadÚnico estadual: cadunico@sas.sc.gov.br
 
 ### Opção 2: Portal Fala.BR
