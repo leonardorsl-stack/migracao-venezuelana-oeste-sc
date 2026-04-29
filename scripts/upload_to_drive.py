@@ -17,8 +17,6 @@ Uso:
 """
 
 import argparse
-import os
-import pickle
 from pathlib import Path
 
 from google.auth.transport.requests import Request
@@ -40,7 +38,7 @@ def authenticate():
     creds = None
     if TOKEN_PATH.exists():
         creds = Credentials.from_authorized_user_file(str(TOKEN_PATH), SCOPES)
-    
+
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
@@ -52,10 +50,10 @@ def authenticate():
                 )
             flow = InstalledAppFlow.from_client_secrets_file(str(CREDENTIALS_PATH), SCOPES)
             creds = flow.run_local_server(port=0)
-        
+
         with open(TOKEN_PATH, "w") as token:
             token.write(creds.to_json())
-    
+
     return build("drive", "v3", credentials=creds)
 
 
@@ -64,10 +62,10 @@ def find_or_create_folder(service, folder_name):
     query = f"mimeType='application/vnd.google-apps.folder' and name='{folder_name}' and trashed=false"
     results = service.files().list(q=query, spaces="drive", fields="files(id, name)").execute()
     items = results.get("files", [])
-    
+
     if items:
         return items[0]["id"]
-    
+
     metadata = {"name": folder_name, "mimeType": "application/vnd.google-apps.folder"}
     folder = service.files().create(body=metadata, fields="id").execute()
     return folder["id"]
@@ -78,14 +76,14 @@ def upload_file(service, file_path, folder_id=None):
     file_path = Path(file_path)
     if not file_path.exists():
         raise FileNotFoundError(f"Arquivo não encontrado: {file_path}")
-    
+
     metadata = {"name": file_path.name}
     if folder_id:
         metadata["parents"] = [folder_id]
-    
+
     media = MediaFileUpload(str(file_path), resumable=True)
     file = service.files().create(body=metadata, media_body=media, fields="id, name, webViewLink").execute()
-    
+
     print(f"✓ Upload concluído: {file['name']}")
     print(f"  ID: {file['id']}")
     print(f"  Link: {file.get('webViewLink', 'N/A')}")
@@ -97,13 +95,13 @@ def main():
     parser.add_argument("--file", type=Path, required=True, help="Arquivo local para upload")
     parser.add_argument("--folder", type=str, default="migracao-venezuelana-sc", help="Nome da pasta no Drive")
     args = parser.parse_args()
-    
+
     print("Autenticando com Google Drive...")
     service = authenticate()
-    
+
     print(f"Verificando pasta '{args.folder}'...")
     folder_id = find_or_create_folder(service, args.folder)
-    
+
     print(f"Enviando {args.file.name}...")
     upload_file(service, args.file, folder_id)
 

@@ -4,9 +4,11 @@
 STATUS: Pendente download real.
 Fonte: FTP do MTE ou portal Novo CAGED.
 """
-import pandas as pd
 import logging
 from pathlib import Path
+
+import pandas as pd
+
 from src.config import Settings
 
 logger = logging.getLogger(__name__)
@@ -31,7 +33,7 @@ def process_caged_sc(output_dir: Path = None) -> pd.DataFrame | None:
     if output_dir is None:
         output_dir = settings.DATA_RAW / "caged"
     output_dir.mkdir(parents=True, exist_ok=True)
-    
+
     logger.warning("CAGED: implementação pendente. Requer download manual.")
     return None
 

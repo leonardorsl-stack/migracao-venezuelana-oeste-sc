@@ -22,14 +22,11 @@ Example:
 
 from __future__ import annotations
 
-import gzip
-import json
 import logging
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
-from urllib.parse import urlencode
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -76,7 +73,7 @@ def _save_cache(df: pd.DataFrame, path: Path, fmt: str = "csv") -> None:
     logger.info("Cache salvo em %s", path)
 
 
-def _load_cache(path: Path, fmt: str = "csv") -> Optional[pd.DataFrame]:
+def _load_cache(path: Path, fmt: str = "csv") -> pd.DataFrame | None:
     """Tenta carregar um DataFrame do cache, se existir.
 
     Args:
@@ -110,9 +107,9 @@ def _cache_is_fresh(path: Path, max_age_days: int = 7) -> bool:
     return datetime.now() - mtime < timedelta(days=max_age_days)
 
 
-def _sidra_get(tabela: str, periodos: List[str], variaveis: List[str],
-               localidades: Optional[Dict[str, List[str]]] = None,
-               classificacoes: Optional[Dict[str, List[str]]] = None,
+def _sidra_get(tabela: str, periodos: list[str], variaveis: list[str],
+               localidades: dict[str, list[str]] | None = None,
+               classificacoes: dict[str, list[str]] | None = None,
                max_retries: int = _MAX_RETRIES) -> pd.DataFrame:
     """Requisição baixo-nível à API SIDRA com retry e backoff exponencial.
 
@@ -146,11 +143,11 @@ def _sidra_get(tabela: str, periodos: List[str], variaveis: List[str],
             parts.append(f"c{classif}/{','.join(categorias)}")
     url = "/".join(parts)
 
-    params: Dict[str, str] = {}
+    params: dict[str, str] = {}
 
     logger.info("Requisitando SIDRA: %s com params %s", url, params)
 
-    last_exc: Optional[Exception] = None
+    last_exc: Exception | None = None
     for attempt in range(1, max_retries + 1):
         try:
             response = requests.get(url, params=params, timeout=120)
@@ -193,8 +190,8 @@ def _normaliza_valor_sidra(df: pd.DataFrame, col: str = "V") -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 
 def fetch_populacao_estimada(
-    anos: Optional[List[int]] = None,
-    localidades: Optional[List[int]] = None,
+    anos: list[int] | None = None,
+    localidades: list[int] | None = None,
     force: bool = False,
 ) -> pd.DataFrame:
     """Obtém estimativas de população residente (tabela 4709 / fallback 6579).
@@ -233,7 +230,7 @@ def fetch_populacao_estimada(
     logger.info("Obtendo estimativas populacionais para %s anos...", len(anos))
 
     # --- Tenta tabela 4709 (só possui 2022 na prática) ---
-    df_4709: Optional[pd.DataFrame] = None
+    df_4709: pd.DataFrame | None = None
     try:
         df_4709 = _sidra_get(
             tabela="4709",
@@ -256,13 +253,13 @@ def fetch_populacao_estimada(
         anos_4709 = set(df_4709["D2C"].dropna().astype(str).unique())
 
     anos_faltantes = [str(a) for a in anos if str(a) not in anos_4709]
-    df_6579: Optional[pd.DataFrame] = None
+    df_6579: pd.DataFrame | None = None
     if anos_faltantes:
         logger.info("Buscando anos faltantes na tabela 6579: %s", anos_faltantes)
         try:
             # A API da SIDRA tem limitação de tamanho de URL; dividimos em lotes
             lotes = [anos_faltantes[i:i + 3] for i in range(0, len(anos_faltantes), 3)]
-            frames_6579: List[pd.DataFrame] = []
+            frames_6579: list[pd.DataFrame] = []
             for lotes_periodos in lotes:
                 df_lote = _sidra_get(
                     tabela="6579",
@@ -313,7 +310,7 @@ def fetch_populacao_estimada(
 
 
 def fetch_censo_2022_migrantes(
-    localidades: Optional[List[int]] = None,
+    localidades: list[int] | None = None,
     force: bool = False,
 ) -> pd.DataFrame:
     """Obtém dados do Censo 2022 por sexo e idade + stub de migrantes.
@@ -389,7 +386,7 @@ def fetch_censo_2022_migrantes(
     logger.info("Gerando stub de migrantes venezuelanos (simulado)...")
 
     rng = np.random.default_rng(seed=42)
-    stub_rows: List[Dict[str, Any]] = []
+    stub_rows: list[dict[str, Any]] = []
 
     faixas_etarias = [
         "0-4", "5-9", "10-14", "15-19", "20-24", "25-29", "30-34",
@@ -467,8 +464,8 @@ def fetch_censo_2022_migrantes(
 # ---------------------------------------------------------------------------
 
 def download_sidra_populacao_municipios(
-    ano: Optional[int] = None,
-    localidades: Optional[List[int]] = None,
+    ano: int | None = None,
+    localidades: list[int] | None = None,
     force: bool = False,
 ) -> pd.DataFrame:
     """Baixa população total por município via API SIDRA (tabela 6579).
@@ -526,7 +523,7 @@ def download_sidra_populacao_municipios(
 
 
 def download_censo_2022_populacao(
-    localidades: Optional[List[int]] = None,
+    localidades: list[int] | None = None,
     force: bool = False,
 ) -> pd.DataFrame:
     """Baixa dados do Censo Demográfico 2022 por município.
@@ -578,8 +575,8 @@ def download_censo_2022_populacao(
 
 
 def download_estimativas_populacionais(
-    anos: Optional[List[int]] = None,
-    localidades: Optional[List[int]] = None,
+    anos: list[int] | None = None,
+    localidades: list[int] | None = None,
     force: bool = False,
 ) -> pd.DataFrame:
     """Baixa estimativas populacionais municipais via API SIDRA (tabela 6579).
@@ -611,7 +608,7 @@ def download_estimativas_populacionais(
 
     logger.info("Obtendo estimativas populacionais para %s municípios e %s anos...", len(str_loc), len(str_anos))
 
-    frames: List[pd.DataFrame] = []
+    frames: list[pd.DataFrame] = []
     for lotes in [str_anos[i:i + 3] for i in range(0, len(str_anos), 3)]:
         try:
             df_lote = _sidra_get(
@@ -637,10 +634,10 @@ def download_estimativas_populacionais(
 
 def fetch_sidra(
     tabela: str,
-    periodos: List[str],
-    variaveis: List[str],
-    localidades: Optional[Dict[str, List[str]]] = None,
-    classificacoes: Optional[Dict[str, List[str]]] = None,
+    periodos: list[str],
+    variaveis: list[str],
+    localidades: dict[str, list[str]] | None = None,
+    classificacoes: dict[str, list[str]] | None = None,
     fmt: str = "parquet",
     force: bool = False,
 ) -> pd.DataFrame:
@@ -679,7 +676,7 @@ def fetch_sidra(
 
 def fetch_censo_2022(
     agregado: str = "populacao_residente",
-    localidades: Optional[List[str]] = None,
+    localidades: list[str] | None = None,
     fmt: str = "parquet",
     force: bool = False,
 ) -> pd.DataFrame:
@@ -719,8 +716,8 @@ def fetch_censo_2022(
 
 
 def fetch_estimativas_populacionais(
-    anos: Optional[List[int]] = None,
-    localidades: Optional[List[int]] = None,
+    anos: list[int] | None = None,
+    localidades: list[int] | None = None,
     fmt: str = "parquet",
     force: bool = False,
 ) -> pd.DataFrame:
@@ -753,7 +750,7 @@ def fetch_estimativas_populacionais(
 
     logger.info("Obtendo estimativas populacionais para %s municípios", len(str_loc))
 
-    frames: List[pd.DataFrame] = []
+    frames: list[pd.DataFrame] = []
     for lotes in [str_anos[i:i + 3] for i in range(0, len(str_anos), 3)]:
         try:
             df_lote = fetch_sidra(
@@ -775,9 +772,9 @@ def fetch_estimativas_populacionais(
 
 
 def fetch_pnad(
-    variaveis: List[str],
-    periodos: Optional[List[str]] = None,
-    localidades: Optional[Dict[str, List[str]]] = None,
+    variaveis: list[str],
+    periodos: list[str] | None = None,
+    localidades: dict[str, list[str]] | None = None,
     fmt: str = "parquet",
     force: bool = False,
 ) -> pd.DataFrame:

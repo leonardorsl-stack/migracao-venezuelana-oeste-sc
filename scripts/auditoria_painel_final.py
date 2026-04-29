@@ -1,9 +1,10 @@
 """
 Auditoria completa do painel longitudinal Oeste SC 2018-2024 - VERSÃO FINAL
 """
-import pandas as pd
-import numpy as np
 from pathlib import Path
+
+import numpy as np
+import pandas as pd
 
 # ============================================================
 # CONFIG
@@ -53,14 +54,14 @@ secao("1. ESTRUTURA E COMPLETUDE")
 n_linhas = len(df)
 bloco(f"**Total de linhas:** {n_linhas} (esperado: 763)")
 if n_linhas == 763:
-    ok(f"Total de linhas = 763")
+    ok("Total de linhas = 763")
 else:
     issue(f"Total de linhas = {n_linhas}, esperado 763")
 
 municipios_unicos = df['codigo_ibge_7d'].nunique()
 bloco(f"**Municípios únicos (7d):** {municipios_unicos} (esperado: 109)")
 if municipios_unicos == 109:
-    ok(f"Municípios únicos = 109")
+    ok("Municípios únicos = 109")
 else:
     issue(f"Municípios únicos = {municipios_unicos}, esperado 109")
 
@@ -136,17 +137,17 @@ for ano in range(2018, 2025):
     dfr = pd.read_parquet(rais_path)
     dfr['municipio_int'] = dfr['municipio'].astype(int)
     dfr_filtrado = dfr[dfr['municipio_int'].isin(painel_mun_6d)]
-    
+
     soma_rais = len(dfr_filtrado)
     soma_painel = df[df['ano']==ano]['total_vinculos_rais'].sum()
-    
+
     # Verificar município a município
     rais_agg = dfr_filtrado.groupby('municipio_int').size().reset_index(name='bruto')
     painel_ano = df[df['ano']==ano][['codigo_ibge_6d', 'total_vinculos_rais']].copy()
     merge = painel_ano.merge(rais_agg, left_on='codigo_ibge_6d', right_on='municipio_int', how='outer')
     merge = merge.fillna(0)
     diff = merge[merge['total_vinculos_rais'] != merge['bruto']]
-    
+
     bloco(f"**RAIS {ano}:** Painel={soma_painel}, Bruto filtrado={soma_rais}, Diff={soma_painel-soma_rais}, Municípios divergentes={len(diff)}")
     if len(diff) > 0:
         issue(f"RAIS {ano}: {len(diff)} municípios divergentes")
@@ -173,10 +174,10 @@ sih_agg = dfsih_filtrado.groupby(['ano', 'MUNIC_RES_INT']).agg(
 for ano in range(2018, 2025):
     painel_ano = df[df['ano']==ano][['codigo_ibge_6d', 'total_internacoes_sih', 'dias_permanencia_sih', 'valor_total_sih', 'obitos_hospitalares_sih']].copy()
     sih_ano = sih_agg[sih_agg['ano']==ano].copy()
-    
+
     merge = painel_ano.merge(sih_ano, left_on='codigo_ibge_6d', right_on='MUNIC_RES_INT', how='outer')
     merge = merge.fillna(0)
-    
+
     for col in ['total_internacoes_sih', 'dias_permanencia_sih', 'valor_total_sih', 'obitos_hospitalares_sih']:
         col_bruto = col + '_bruto'
         diff = merge[merge[col] != merge[col_bruto]]
@@ -196,8 +197,8 @@ dfpop = pd.read_parquet("data/processed/ibge_populacao_estimada_oeste_sc.parquet
 bloco(f"População fonte: {len(dfpop)} registros, anos: {sorted(dfpop['ano'].unique())}")
 
 merge_pop = df[['codigo_ibge_7d', 'ano', 'populacao_total']].merge(
-    dfpop[['codigo_ibge_7d', 'ano', 'populacao']], 
-    on=['codigo_ibge_7d', 'ano'], 
+    dfpop[['codigo_ibge_7d', 'ano', 'populacao']],
+    on=['codigo_ibge_7d', 'ano'],
     how='outer'
 )
 merge_pop = merge_pop.fillna(0)
@@ -217,8 +218,8 @@ dfsim = pd.read_parquet("data/processed/datasus_sim_oeste_sc.parquet")
 bloco(f"SIM fonte: {len(dfsim)} registros, anos: {sorted(dfsim['ano'].unique())}")
 
 merge_sim = df[['codigo_ibge_6d', 'ano', 'total_obitos']].merge(
-    dfsim[['codigo_ibge_6d', 'ano', 'total_obitos']], 
-    on=['codigo_ibge_6d', 'ano'], 
+    dfsim[['codigo_ibge_6d', 'ano', 'total_obitos']],
+    on=['codigo_ibge_6d', 'ano'],
     suffixes=('_painel', '_fonte'),
     how='outer'
 )
@@ -239,8 +240,8 @@ dfsinasc = pd.read_parquet("data/processed/datasus_sinasc_oeste_sc.parquet")
 bloco(f"SINASC fonte: {len(dfsinasc)} registros, anos: {sorted(dfsinasc['ano'].unique())}")
 
 merge_sinasc = df[['codigo_ibge_6d', 'ano', 'total_nascimentos']].merge(
-    dfsinasc[['codigo_ibge_6d', 'ano', 'total_nascimentos']], 
-    on=['codigo_ibge_6d', 'ano'], 
+    dfsinasc[['codigo_ibge_6d', 'ano', 'total_nascimentos']],
+    on=['codigo_ibge_6d', 'ano'],
     suffixes=('_painel', '_fonte'),
     how='outer'
 )
@@ -388,7 +389,7 @@ secao("6. CORREÇÕES E RECOMENDAÇÕES")
 
 if correcoes_necessarias:
     bloco("**Correções necessárias detectadas.**")
-    
+
     # Verificar especificamente o problema do SINASC 2023
     if nans_nasc_2023 == 0:
         bloco("""
@@ -399,8 +400,8 @@ No entanto, a fonte SINASC só possui dados até 2022 (545 registros = 109 × 5 
 
 **Ação:** Substituir `total_nascimentos` e `taxa_natalidade` de 2023 de 0.0 para NaN.
 """)
-        
-    bloco(f"""
+
+    bloco("""
 ### Lista completa de problemas
 """)
     for i, issue_text in enumerate(issues, 1):

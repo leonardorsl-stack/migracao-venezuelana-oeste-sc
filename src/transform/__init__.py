@@ -9,21 +9,21 @@ Funções exportadas:
     - Enriquecimento com classificações setoriais, faixas etárias e índices
 """
 
-from src.transform.harmonizacao import (
-    harmonize_geocodes,
-    merge_datasets,
-    standardize_dates,
-)
 from src.transform.anonimizacao import (
     aggregate_municipal,
     anonymize_dataframe,
     hash_column,
 )
 from src.transform.enriquecimento import (
-    cnae_to_sector,
     classify_microregion,
+    cnae_to_sector,
     compute_indices,
     cut_age_bins,
+)
+from src.transform.harmonizacao import (
+    harmonize_geocodes,
+    merge_datasets,
+    standardize_dates,
 )
 
 __all__ = [

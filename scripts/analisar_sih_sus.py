@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Análise do SIH/SUS - Internações hospitalares de venezuelanos em SC (2018-2025)."""
 
-import pandas as pd
-from pathlib import Path
 import json
-from collections import Counter
 import sys
+from pathlib import Path
+
+import pandas as pd
 
 DATA_DIR = Path("/Users/leonardosantos/Documents/raio_x_migraçao/data/raw/datasus")
 OUTPUT_DIR = Path("/Users/leonardosantos/Documents/raio_x_migraçao/output")
@@ -37,7 +37,7 @@ def carregar_dados():
     df['VAL_TOT'] = pd.to_numeric(df['VAL_TOT'], errors='coerce')
     df['CBOR'] = df['CBOR'].astype(str).str.strip()
     df['CNAER'] = df['CNAER'].astype(str).str.strip()
-    
+
     # Calcular idade em anos
     def calc_idade_anos(row):
         cod = str(row['COD_IDADE'])
@@ -45,24 +45,22 @@ def carregar_dados():
         if pd.isna(idade):
             return None
         idade = int(idade)
-        if cod == '2':  # dias
-            return 0
-        elif cod == '3':  # meses
+        if cod == '2' or cod == '3':  # dias
             return 0
         elif cod == '4':  # anos
             return idade
         elif cod == '5':  # >100 anos
             return 100
         return None
-    
+
     df['idade_anos'] = df.apply(calc_idade_anos, axis=1)
-    
+
     # Flag Oeste SC
     df['municipio_res_num'] = pd.to_numeric(df['MUNIC_RES'], errors='coerce')
     df['municipio_mov_num'] = pd.to_numeric(df['MUNIC_MOV'], errors='coerce')
     df['oeste_sc_res'] = df['municipio_res_num'].isin(REGIAO_OESTE_SC_6D)
     df['oeste_sc_mov'] = df['municipio_mov_num'].isin(REGIAO_OESTE_SC_6D)
-    
+
     return df
 
 
@@ -70,12 +68,12 @@ def analisar_evolucao_temporal(df):
     print("\n" + "="*60)
     print("1. EVOLUÇÃO TEMPORAL")
     print("="*60)
-    
+
     ev_ano = df.groupby('ano').size().reset_index(name='internacoes')
     print("\nPor ano:")
     for _, row in ev_ano.iterrows():
         print(f"  {int(row['ano'])}: {row['internacoes']} internações")
-    
+
     # Taxa de crescimento ano a ano
     print("\nTaxa de crescimento:")
     for i in range(1, len(ev_ano)):
@@ -86,7 +84,7 @@ def analisar_evolucao_temporal(df):
         if val_ant > 0:
             cresc = ((val_atual - val_ant) / val_ant) * 100
             print(f"  {ano_ant} → {ano_atual}: +{cresc:.1f}%")
-    
+
     return ev_ano
 
 
@@ -94,16 +92,16 @@ def analisar_cids(df):
     print("\n" + "="*60)
     print("2. TOP CIDs (DIAGNÓSTICOS PRINCIPAIS)")
     print("="*60)
-    
+
     # Agrupar por capítulo CID-10 (primeiros 3 caracteres = categoria)
     df['cid_categoria'] = df['DIAG_PRINC'].str[:3]
-    
+
     top_cids = df['DIAG_PRINC'].value_counts().head(20)
     print("\nTop 20 CIDs (4 dígitos):")
     for cid, cnt in top_cids.items():
         pct = (cnt / len(df)) * 100
         print(f"  {cid}: {cnt} ({pct:.1f}%)")
-    
+
     # Capítulos (aproximação pelas letras)
     def cap_cid(cid):
         if not cid or len(cid) < 1:
@@ -137,14 +135,14 @@ def analisar_cids(df):
             'Z': 'Z00-Z99: Fatores saúde/serviços',
         }
         return caps.get(c, 'Outros')
-    
+
     df['capitulo_cid'] = df['DIAG_PRINC'].apply(cap_cid)
     caps = df['capitulo_cid'].value_counts().head(15)
     print("\nPor capítulo CID-10:")
     for cap, cnt in caps.items():
         pct = (cnt / len(df)) * 100
         print(f"  {cap}: {cnt} ({pct:.1f}%)")
-    
+
     return top_cids
 
 
@@ -152,7 +150,7 @@ def analisar_municipios(df):
     print("\n" + "="*60)
     print("3. DISTRIBUIÇÃO POR MUNICÍPIO")
     print("="*60)
-    
+
     # Município de residência
     mun_res = df['MUNIC_RES'].value_counts().head(15)
     print("\nTop 15 municípios de RESIDÊNCIA:")
@@ -160,7 +158,7 @@ def analisar_municipios(df):
         pct = (cnt / len(df)) * 100
         flag = " [OESTE]" if int(mun) in REGIAO_OESTE_SC else ""
         print(f"  {mun}: {cnt} ({pct:.1f}%){flag}")
-    
+
     # Município do hospital
     mun_mov = df['MUNIC_MOV'].value_counts().head(15)
     print("\nTop 15 municípios do HOSPITAL:")
@@ -168,11 +166,11 @@ def analisar_municipios(df):
         pct = (cnt / len(df)) * 100
         flag = " [OESTE]" if int(mun) in REGIAO_OESTE_SC else ""
         print(f"  {mun}: {cnt} ({pct:.1f}%){flag}")
-    
+
     # Resumo Oeste SC
     res_oeste = df['oeste_sc_res'].sum()
     mov_oeste = df['oeste_sc_mov'].sum()
-    print(f"\nResumo Oeste SC:")
+    print("\nResumo Oeste SC:")
     print(f"  Residem no Oeste: {res_oeste} ({res_oeste/len(df)*100:.1f}%)")
     print(f"  Internados no Oeste: {mov_oeste} ({mov_oeste/len(df)*100:.1f}%)")
 
@@ -181,7 +179,7 @@ def analisar_acidentes_trabalho(df):
     print("\n" + "="*60)
     print("4. ACIDENTES DE TRABALHO E CARÁTER DA INTERNAÇÃO")
     print("="*60)
-    
+
     car_map = {
         '01': 'Eletivo',
         '02': 'Urgência',
@@ -190,29 +188,29 @@ def analisar_acidentes_trabalho(df):
         '05': 'Acidente trânsito',
         '06': 'Outras lesões/envenenamentos'
     }
-    
+
     car_counts = df['CAR_INT'].value_counts()
     print("\nCaráter da internação:")
     for car, cnt in car_counts.items():
         pct = (cnt / len(df)) * 100
         desc = car_map.get(car, 'Desconhecido')
         print(f"  {car} - {desc}: {cnt} ({pct:.1f}%)")
-    
+
     # Acidentes de trabalho (cód. 3 e 4)
     acidentes = df[df['CAR_INT'].isin(['3', '4'])]
     print(f"\nAcidentes de trabalho + trajeto: {len(acidentes)} ({len(acidentes)/len(df)*100:.1f}%)")
-    
+
     if len(acidentes) > 0:
         print("\nCIDs principais em acidentes de trabalho:")
         cids_acid = acidentes['DIAG_PRINC'].value_counts().head(10)
         for cid, cnt in cids_acid.items():
             print(f"  {cid}: {cnt}")
-        
+
         print("\nEvolução anual de acidentes:")
         ev_acid = acidentes.groupby('ano').size()
         for ano, cnt in ev_acid.items():
             print(f"  {ano}: {cnt}")
-    
+
     return acidentes
 
 
@@ -220,7 +218,7 @@ def analisar_demografia(df):
     print("\n" + "="*60)
     print("5. PERFIL DEMOGRÁFICO")
     print("="*60)
-    
+
     # Sexo
     sexo_map = {'1': 'Masculino', '2': 'Feminino', '3': 'Feminino'}
     df['sexo_desc'] = df['SEXO'].map(sexo_map).fillna('Ignorado')
@@ -228,15 +226,15 @@ def analisar_demografia(df):
     print("\nSexo:")
     for sexo, cnt in sexo_counts.items():
         print(f"  {sexo}: {cnt} ({cnt/len(df)*100:.1f}%)")
-    
+
     # Idade
     idade_valida = df['idade_anos'].dropna()
-    print(f"\nIdade (anos):")
+    print("\nIdade (anos):")
     print(f"  Média: {idade_valida.mean():.1f}")
     print(f"  Mediana: {idade_valida.median():.1f}")
     print(f"  Min: {idade_valida.min():.0f}")
     print(f"  Max: {idade_valida.max():.0f}")
-    
+
     # Faixas etárias
     bins = [0, 18, 30, 40, 50, 60, 100]
     labels = ['0-17', '18-29', '30-39', '40-49', '50-59', '60+']
@@ -251,23 +249,23 @@ def analisar_permanencia(df):
     print("\n" + "="*60)
     print("6. PERMANÊNCIA E ÓBITOS")
     print("="*60)
-    
+
     dias = df['DIAS_PERM'].dropna()
-    print(f"\nDias de permanência:")
+    print("\nDias de permanência:")
     print(f"  Média: {dias.mean():.1f}")
     print(f"  Mediana: {dias.median():.1f}")
     print(f"  Max: {dias.max():.0f}")
-    
+
     # Óbitos
     obitos = df['MORTE'].sum()
     print(f"\nÓbitos: {int(obitos)} ({obitos/len(df)*100:.2f}%)")
-    
+
     if obitos > 0:
         obitos_ano = df[df['MORTE'] == 1].groupby('ano').size()
         print("\nÓbitos por ano:")
         for ano, cnt in obitos_ano.items():
             print(f"  {ano}: {cnt}")
-    
+
     # UTI
     uti_cols = ['UTI_MES_IN', 'UTI_MES_AN', 'UTI_MES_AL', 'UTI_MES_TO']
     for col in uti_cols:
@@ -281,13 +279,13 @@ def analisar_valores(df):
     print("\n" + "="*60)
     print("7. VALORES DAS INTERNAÇÕES")
     print("="*60)
-    
+
     val = df['VAL_TOT'].dropna()
-    print(f"\nValor total (R$):")
+    print("\nValor total (R$):")
     print(f"  Soma: R$ {val.sum():,.2f}")
     print(f"  Média: R$ {val.mean():,.2f}")
     print(f"  Mediana: R$ {val.median():,.2f}")
-    
+
     # Por ano
     print("\nValor total por ano:")
     val_ano = df.groupby('ano')['VAL_TOT'].sum()
@@ -299,7 +297,7 @@ def analisar_cbo_cnae(df):
     print("\n" + "="*60)
     print("8. OCUPAÇÃO (CBO) E ATIVIDADE ECONÔMICA (CNAE)")
     print("="*60)
-    
+
     # CBO
     cbo_validos = df[df['CBOR'].str.len() >= 3]['CBOR'].value_counts().head(15)
     if len(cbo_validos) > 0:
@@ -308,7 +306,7 @@ def analisar_cbo_cnae(df):
             print(f"  {cbo}: {cnt}")
     else:
         print("\nCBO: poucos registros preenchidos")
-    
+
     # CNAE
     cnae_validos = df[df['CNAER'].str.len() >= 2]['CNAER'].value_counts().head(10)
     if len(cnae_validos) > 0:
@@ -323,7 +321,7 @@ def analisar_procedimentos(df):
     print("\n" + "="*60)
     print("9. PROCEDIMENTOS REALIZADOS")
     print("="*60)
-    
+
     proc = df['PROC_REA'].value_counts().head(15)
     print("\nTop procedimentos:")
     for p, cnt in proc.items():
@@ -332,28 +330,28 @@ def analisar_procedimentos(df):
 
 def gerar_resumo_json(df):
     """Gera um resumo estruturado em JSON."""
-    
+
     # Óbitos por ano
     obitos_ano = df[df['MORTE'] == 1].groupby('ano').size().to_dict()
-    
+
     # Internações por ano
     intern_ano = df.groupby('ano').size().to_dict()
-    
+
     # Top 10 CIDs
     top_cids = df['DIAG_PRINC'].value_counts().head(10).to_dict()
-    
+
     # Top 10 municípios residência
     top_mun = df['MUNIC_RES'].value_counts().head(10).to_dict()
-    
+
     # Sexo
     sexo_counts = df['sexo_desc'].value_counts().to_dict() if 'sexo_desc' in df.columns else {}
-    
+
     # Acidentes trabalho
     acidentes = df[df['CAR_INT'].isin(['3', '4'])]
-    
+
     # Valor total
     val_total = float(df['VAL_TOT'].sum())
-    
+
     resumo = {
         'total_registros': len(df),
         'periodo': '2018-2025',
@@ -372,11 +370,11 @@ def gerar_resumo_json(df):
         'oeste_sc_residencia_percentual': float(df['oeste_sc_res'].sum() / len(df) * 100),
         'oeste_sc_hospital_percentual': float(df['oeste_sc_mov'].sum() / len(df) * 100),
     }
-    
+
     out = OUTPUT_DIR / 'resumo_sih_sus_venezuela_sc_2018_2025.json'
     with open(out, 'w', encoding='utf-8') as f:
         json.dump(resumo, f, ensure_ascii=False, indent=2)
-    
+
     print(f"\n📄 Resumo JSON salvo: {out}")
     return resumo
 
@@ -385,10 +383,10 @@ def main():
     print("="*60)
     print("ANÁLISE SIH/SUS - VENEZUELANOS EM SC (2018-2025)")
     print("="*60)
-    
+
     df = carregar_dados()
     print(f"\nTotal de registros: {len(df)}")
-    
+
     ev = analisar_evolucao_temporal(df)
     cids = analisar_cids(df)
     analisar_municipios(df)
@@ -398,9 +396,9 @@ def main():
     analisar_valores(df)
     analisar_cbo_cnae(df)
     analisar_procedimentos(df)
-    
+
     resumo = gerar_resumo_json(df)
-    
+
     print("\n" + "="*60)
     print("✅ ANÁLISE CONCLUÍDA")
     print("="*60)

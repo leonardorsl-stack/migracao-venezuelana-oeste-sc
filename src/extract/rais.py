@@ -7,9 +7,11 @@ Os microdados RAIS estão disponíveis em:
 
 Requer acesso ao FTP do MTE e descompactação de arquivos .7z
 """
-import pandas as pd
 import logging
 from pathlib import Path
+
+import pandas as pd
+
 from src.config import Settings
 
 logger = logging.getLogger(__name__)
@@ -32,17 +34,17 @@ def process_rais_sc(output_dir: Path = None) -> pd.DataFrame | None:
     if output_dir is None:
         output_dir = settings.DATA_RAW / "rais"
     output_dir.mkdir(parents=True, exist_ok=True)
-    
+
     all_data = []
     for year in RAIS_YEARS:
         df = fetch_rais_vinculos(year)
         if df is not None:
             all_data.append(df)
-    
+
     if not all_data:
         logger.warning("Nenhum dado RAIS disponível. Execute download manual via FTP.")
         return None
-    
+
     combined = pd.concat(all_data, ignore_index=True)
     combined.to_parquet(output_dir / "rais_vinculos_sc_venezuela.parquet", compression="zstd")
     logger.info("RAIS processado: %d registros", len(combined))

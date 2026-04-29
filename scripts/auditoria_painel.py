@@ -1,10 +1,9 @@
 """
 Auditoria completa do painel longitudinal Oeste SC 2018-2024
 """
-import pandas as pd
-import numpy as np
-import sys
 from pathlib import Path
+
+import pandas as pd
 
 # ============================================================
 # CONFIG

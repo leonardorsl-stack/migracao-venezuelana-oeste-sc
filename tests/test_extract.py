@@ -4,8 +4,6 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pandas as pd
-import pytest
-
 from extract.pysus_extractor import extract_sih, extract_sim
 
 
@@ -18,7 +16,7 @@ def test_extract_sih_returns_path(mock_download: MagicMock, tmp_path: Path) -> N
 
     result = extract_sih(uf="SC", year=2023, month=1)
 
-    assert isinstance(result, (str, Path))
+    assert isinstance(result, str | Path)
     mock_download.assert_called_once()
 
 

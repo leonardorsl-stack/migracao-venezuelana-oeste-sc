@@ -1,6 +1,7 @@
-import pandas as pd
-import os
 import json
+import os
+
+import pandas as pd
 
 # ============================================================================
 # CONFIGURAÇÕES
@@ -59,10 +60,10 @@ for year in YEARS:
     print(f"Registros: {n_rows} (esperado: {expected}) -> {status}")
     if n_rows != expected:
         add_problema("ALTA", "Integridade", f"Ano {year}: {n_rows} registros, esperado {expected}")
-    
+
     print(f"Colunas ({len(df.columns)}): {list(df.columns)}")
     print(f"Tipos:\n{df.dtypes}")
-    
+
     nulos = df.isnull().sum()
     nulos_rel = (nulos / n_rows * 100).round(2)
     cols_com_nulos = nulos[nulos > 0]
@@ -89,10 +90,10 @@ for year in YEARS:
         print(f"Ano {year}: coluna de nacionalidade não encontrada! Colunas: {list(df.columns)}")
         add_problema("CRÍTICA", "Nacionalidade", f"Ano {year}: coluna de nacionalidade não encontrada")
         continue
-    
+
     nac_counts = df[col_nac].value_counts().to_dict()
     print(f"Ano {year} ({col_nac}): {nac_counts}")
-    
+
     # Verificar se todos são Venezuela/092
     outros = {k: v for k, v in nac_counts.items() if str(k) not in ['092', 'Venezuela', 'VENEZUELA', 'venezuela']}
     if outros:
@@ -115,7 +116,7 @@ for year in YEARS:
         print(f"Ano {year}: colunas disponíveis: {list(df.columns)}")
         add_problema("ALTA", "Município", f"Ano {year}: não encontrou coluna de município")
         continue
-    
+
     agg = df.groupby(col_mun).size().reset_index(name=f'vinculos_{year}')
     raw_agg[year] = agg
     print(f"Ano {year}: {len(agg)} municípios distintos na RAIS bruta")
@@ -130,13 +131,13 @@ for year in YEARS:
     if col_vinc not in painel.columns:
         add_problema("ALTA", "Painel", f"Coluna {col_vinc} não encontrada no painel")
         continue
-    
+
     painel_sum = painel[col_vinc].sum()
     if year in raw_agg:
         raw_sum = raw_agg[year].iloc[:, 1].sum()
     else:
         raw_sum = 0
-    
+
     diff = painel_sum - raw_sum
     status = "PASSOU" if diff == 0 else "FALHOU"
     print(f"Ano {year}: painel={painel_sum}, bruto={raw_sum}, diff={diff} -> {status}")
@@ -156,11 +157,11 @@ for year in YEARS:
     col_vinc = f'vinculos_{year}'
     col_taxa = f'taxa_vinculos_por_mil_{year}'
     col_pop = f'populacao_{year}'
-    
+
     if col_vinc not in painel.columns or col_taxa not in painel.columns:
         print(f"Ano {year}: colunas necessárias não encontradas no painel")
         continue
-    
+
     if col_pop in painel.columns:
         calculada = (painel[col_vinc] / painel[col_pop] * 1000).round(6)
         diff = (calculada - painel[col_taxa]).abs()
@@ -172,12 +173,12 @@ for year in YEARS:
     else:
         print(f"Ano {year}: coluna de população não encontrada, não é possível verificar cálculo")
         add_problema("MÉDIA", "Taxas", f"Ano {year}: coluna {col_pop} não encontrada no painel")
-    
+
     taxas_altas = painel[col_taxa][painel[col_taxa] > 500]
     if len(taxas_altas) > 0:
         add_problema("MÉDIA", "Taxas", f"Ano {year}: {len(taxas_altas)} municípios com taxa > 500")
         print(f"Ano {year}: {len(taxas_altas)} municípios com taxa > 500")
-    
+
     negativas = painel[col_taxa][painel[col_taxa] < 0]
     if len(negativas) > 0:
         add_problema("ALTA", "Taxas", f"Ano {year}: {len(negativas)} municípios com taxa negativa")
@@ -193,7 +194,7 @@ print("=" * 60)
 
 for year in YEARS:
     df = annual_dfs[year]
-    
+
     # Sexo
     col_sexo = get_col(df, ['sexo', 'SEXO', 'Sexo'])
     if col_sexo:
@@ -207,7 +208,7 @@ for year in YEARS:
     else:
         add_problema("BAIXA", "Sexo", f"Ano {year}: coluna de sexo não encontrada")
         print(f"Ano {year}: coluna de sexo não encontrada.")
-    
+
     # Idade
     col_idade = get_col(df, ['idade', 'IDADE', 'Idade', 'IDADE_1'])
     if col_idade:
@@ -222,7 +223,7 @@ for year in YEARS:
         if idade_max > 100:
             n = (idade_num > 100).sum()
             add_problema("MÉDIA", "Idade", f"Ano {year}: {n} registros com idade > 100 (max={idade_max})")
-        
+
         bins = [0, 17, 24, 39, 54, 64, 100, 200]
         labels = ['<18', '18-24', '25-39', '40-54', '55-64', '65-100', '>100']
         faixas = pd.cut(idade_num, bins=bins, labels=labels, right=True)
@@ -263,12 +264,12 @@ for i in range(1, len(YEARS)):
     y2 = YEARS[i]
     df1 = annual_dfs[y1]
     df2 = annual_dfs[y2]
-    
+
     # Usar apenas colunas comuns
     cols_comuns = list(set(df1.columns) & set(df2.columns))
     # Excluir ano se existir
     cols_comuns = [c for c in cols_comuns if c != 'ano']
-    
+
     merged = pd.merge(df1[cols_comuns], df2[cols_comuns], on=cols_comuns, how='inner')
     n_dup = len(merged)
     if n_dup > 0:

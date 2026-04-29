@@ -5,7 +5,6 @@ Projeto: migracao-venezuelana-oeste-sc
 Autores: Leonardo Rafael Santos Leitao e Vicente Neves da Silva Ribeiro (UFFS)
 """
 
-from typing import Optional
 import matplotlib.pyplot as plt
 
 

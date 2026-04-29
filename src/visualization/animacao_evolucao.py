@@ -143,7 +143,7 @@ rank_global = (
     .index.tolist()
 )
 cores = plt.cm.tab20(np.linspace(0, 1, len(rank_global)))
-cor_por_mun = dict(zip(rank_global, cores))
+cor_por_mun = dict(zip(rank_global, cores, strict=False))
 
 for ano in ANOS:
     df_ano = df[df["ano"] == ano][["municipio", "total_vinculos_rais"]].copy()
@@ -166,7 +166,7 @@ for ano in ANOS:
     barras = ax.barh(df_ano["municipio"], df_ano["total_vinculos_rais"], color=df_ano["cor"], edgecolor="white")
 
     # Valores nas barras
-    for barra, val in zip(barras, df_ano["total_vinculos_rais"]):
+    for barra, val in zip(barras, df_ano["total_vinculos_rais"], strict=False):
         if val > 0:
             ax.text(val + 1, barra.get_y() + barra.get_height() / 2, f"{int(val)}",
                     va="center", ha="left", fontsize=9, fontweight="bold")

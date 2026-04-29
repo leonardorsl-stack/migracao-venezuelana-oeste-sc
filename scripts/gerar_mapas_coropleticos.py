@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Gera mapas coropléticos da Região Oeste de SC com dados de vínculos RAIS
 de venezuelanos (2024).
 """
 
 import geopandas as gpd
-import pandas as pd
-import matplotlib.pyplot as plt
 import matplotlib.patheffects as pe
-import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
 
 # ---------------------------------------------------------------------------
 # 1. Ler shapefile e filtrar SC

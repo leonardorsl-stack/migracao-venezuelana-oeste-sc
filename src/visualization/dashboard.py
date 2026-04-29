@@ -5,8 +5,8 @@ Projeto: migracao-venezuelana-oeste-sc
 Autores: Leonardo Rafael Santos Leitao e Vicente Neves da Silva Ribeiro (UFFS)
 """
 
-import streamlit as st
 import pandas as pd
+import streamlit as st
 
 
 def main():

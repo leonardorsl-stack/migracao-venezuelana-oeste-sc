@@ -1,7 +1,6 @@
 """Extração de dados do DataSUS via PySUS."""
 
 from pathlib import Path
-from typing import Any
 
 import pandas as pd
 

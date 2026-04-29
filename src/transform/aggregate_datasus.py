@@ -13,7 +13,6 @@ from __future__ import annotations
 
 import logging
 from pathlib import Path
-from typing import Dict, List, Tuple
 
 import polars as pl
 
@@ -22,7 +21,7 @@ from src.config import SETTINGS
 logger = logging.getLogger(__name__)
 
 
-def _get_codigos_oeste_6d() -> List[str]:
+def _get_codigos_oeste_6d() -> list[str]:
     """Retorna códigos IBGE de 6 dígitos dos municípios da Região Oeste de SC."""
     return [str(c)[:6] for c in SETTINGS.REGIAO_OESTE_SC]
 
@@ -191,7 +190,7 @@ def process_sim(
 
     logger.info("Processando %d arquivos SIM...", len(arquivos))
 
-    partes: List[pl.DataFrame] = []
+    partes: list[pl.DataFrame] = []
     for arq in arquivos:
         df = pl.read_parquet(arq)
         # Padroniza CODMUNRES para 6 dígitos
@@ -260,7 +259,7 @@ def process_sim(
     resultado = resultado.join(agg_causas, on=["CODMUNRES_6", "ano"], how="left")
 
     # Mapeia código 6 -> 7 dígitos e nome do município
-    mapa_codigos = {str(c)[:6]: {"codigo_7": str(c), "nome": nome} for c, nome in zip(SETTINGS.REGIAO_OESTE_SC, _nomes_municipios())}
+    mapa_codigos = {str(c)[:6]: {"codigo_7": str(c), "nome": nome} for c, nome in zip(SETTINGS.REGIAO_OESTE_SC, _nomes_municipios(), strict=False)}
     resultado = resultado.with_columns(
         pl.col("CODMUNRES_6").replace({k: v["codigo_7"] for k, v in mapa_codigos.items()}).alias("codigo_ibge_7d"),
         pl.col("CODMUNRES_6").replace({k: v["nome"] for k, v in mapa_codigos.items()}).alias("municipio"),
@@ -311,7 +310,7 @@ def process_sinasc(
 
     logger.info("Processando %d arquivos SINASC...", len(arquivos))
 
-    partes: List[pl.DataFrame] = []
+    partes: list[pl.DataFrame] = []
     for arq in arquivos:
         # Pula arquivo corrompido de 2023
         if "2023" in arq.name:
@@ -387,7 +386,7 @@ def process_sinasc(
     resultado = resultado.join(agg_parto, on=["CODMUNRES_6", "ano"], how="left")
 
     # Mapeia código 6 -> 7 dígitos e nome
-    mapa_codigos = {str(c)[:6]: {"codigo_7": str(c), "nome": nome} for c, nome in zip(SETTINGS.REGIAO_OESTE_SC, _nomes_municipios())}
+    mapa_codigos = {str(c)[:6]: {"codigo_7": str(c), "nome": nome} for c, nome in zip(SETTINGS.REGIAO_OESTE_SC, _nomes_municipios(), strict=False)}
     resultado = resultado.with_columns(
         pl.col("CODMUNRES_6").replace({k: v["codigo_7"] for k, v in mapa_codigos.items()}).alias("codigo_ibge_7d"),
         pl.col("CODMUNRES_6").replace({k: v["nome"] for k, v in mapa_codigos.items()}).alias("municipio"),
@@ -502,7 +501,7 @@ def process_indicadores(
 # Utilitários
 # ───────────────────────────────────────────────────────────────
 
-NOMES_MUNICIPIOS: Dict[int, str] = {
+NOMES_MUNICIPIOS: dict[int, str] = {
     4204202: "Chapecó",
     4204301: "Concórdia",
     4216800: "Seara",
@@ -526,7 +525,7 @@ NOMES_MUNICIPIOS: Dict[int, str] = {
 }
 
 
-def _nomes_municipios() -> List[str]:
+def _nomes_municipios() -> list[str]:
     """Retorna nomes dos municípios na mesma ordem de REGIAO_OESTE_SC."""
     return [NOMES_MUNICIPIOS[c] for c in SETTINGS.REGIAO_OESTE_SC]
 
@@ -535,7 +534,7 @@ def _nomes_municipios() -> List[str]:
 # Orquestrador
 # ───────────────────────────────────────────────────────────────
 
-def run_all() -> Tuple[pl.DataFrame, pl.DataFrame, pl.DataFrame]:
+def run_all() -> tuple[pl.DataFrame, pl.DataFrame, pl.DataFrame]:
     """Executa todo o pipeline de agregação DataSUS.
 
     Returns:

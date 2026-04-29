@@ -23,7 +23,7 @@ import logging
 import os
 import sys
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 import requests
 
@@ -49,7 +49,7 @@ logger = logging.getLogger(__name__)
 def _get_token() -> str:
     token = os.getenv("OSF_TOKEN", "")
     if not token:
-        raise EnvironmentError(
+        raise OSError(
             "OSF_TOKEN não encontrado. Verifique seu arquivo .env."
         )
     return token
@@ -59,7 +59,7 @@ def _get_default_node_id() -> str:
     return os.getenv("OSF_NODE_ID", "")
 
 
-def get_osf_headers() -> Dict[str, str]:
+def get_osf_headers() -> dict[str, str]:
     """Retorna headers padrão para autenticação na API OSF.
 
     Returns:
@@ -71,7 +71,7 @@ def get_osf_headers() -> Dict[str, str]:
     }
 
 
-def get_node_info(node_id: str) -> Dict[str, Any]:
+def get_node_info(node_id: str) -> dict[str, Any]:
     """Obtém informações de um nó (projeto/componente) OSF.
 
     Args:
@@ -91,7 +91,7 @@ def get_node_info(node_id: str) -> Dict[str, Any]:
     return data
 
 
-def list_osf_files(node_id: str) -> Dict[str, Any]:
+def list_osf_files(node_id: str) -> dict[str, Any]:
     """Lista arquivos na raiz do provider ``osfstorage`` do nó.
 
     Args:
@@ -106,7 +106,7 @@ def list_osf_files(node_id: str) -> Dict[str, Any]:
     return resp.json()
 
 
-def create_osf_folder(node_id: str, folder_name: str, target_path: str = "") -> Dict[str, Any]:
+def create_osf_folder(node_id: str, folder_name: str, target_path: str = "") -> dict[str, Any]:
     """Cria uma pasta vazia no OSF via WaterButler.
 
     A criação de pasta no OSF é feita fazendo um PUT para o WaterButler
@@ -156,7 +156,7 @@ def _get_upload_link(node_id: str, target_path: str = "") -> str:
         URL base do WaterButler para upload.
     """
     headers = get_osf_headers()
-    
+
     if target_path:
         target_path = target_path.strip("/")
         # Lista a raiz para encontrar a pasta e seu link de upload
@@ -173,7 +173,7 @@ def _get_upload_link(node_id: str, target_path: str = "") -> str:
             f"Pasta '{target_path}' não encontrada no OSF. "
             "Crie-a primeiro com create_osf_folder()."
         )
-    
+
     # Link base do provider para a raiz
     url = f"{OSF_API_BASE}/nodes/{node_id}/files/"
     resp = requests.get(url, headers=headers, timeout=30)
@@ -186,7 +186,7 @@ def upload_file_to_osf(
     node_id: str,
     file_path: Path,
     target_path: str = "",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Faz upload de um arquivo local para o OSF.
 
     Utiliza o endpoint do WaterButler (v1) com método PUT e query params
@@ -272,7 +272,7 @@ def _build_argparser() -> argparse.ArgumentParser:
     return parser
 
 
-def main(argv: Optional[list[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     args = _build_argparser().parse_args(argv)
 
     log_level = logging.DEBUG if args.verbose else logging.INFO
@@ -292,7 +292,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     except requests.HTTPError as exc:
         logger.error("Falha ao acessar nó OSF '%s': %s", node_id, exc)
         return 1
-    except EnvironmentError as exc:
+    except OSError as exc:
         logger.error("%s", exc)
         return 1
 

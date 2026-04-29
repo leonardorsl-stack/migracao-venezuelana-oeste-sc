@@ -14,8 +14,8 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 # Adiciona src/ ao path para importar config
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -33,7 +33,7 @@ def main() -> None:
     anos = list(range(2018, 2025))
 
     esqueleto = pd.DataFrame(
-        [(c7, c6, a) for c7, c6 in zip(codigos_7d, codigos_6d) for a in anos],
+        [(c7, c6, a) for c7, c6 in zip(codigos_7d, codigos_6d, strict=False) for a in anos],
         columns=["codigo_ibge_7d", "codigo_ibge_6d", "ano"],
     )
 

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Script de correção de figuras identificadas na auditoria.
 
@@ -11,14 +10,13 @@ Recria as figuras com problemas graves encontrados na auditoria:
 """
 
 import os
+
+import geopandas as gpd
+import matplotlib.patheffects as pe
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib.patheffects as pe
 import seaborn as sns
-from scipy import stats
-import geopandas as gpd
-from pathlib import Path
 
 # ---------------------------------------------------------------------------
 # Configurações globais
@@ -79,7 +77,7 @@ ax1.tick_params(axis='y', labelcolor=color_line)
 ax1.set_xticks(reg['ano'])
 ax1.set_ylim(0, reg['taxa_vinculos_por_mil'].max() * 1.15)
 
-for x, y in zip(reg['ano'], reg['taxa_vinculos_por_mil']):
+for x, y in zip(reg['ano'], reg['taxa_vinculos_por_mil'], strict=False):
     ax1.annotate(f'{y:.1f}', xy=(x, y), textcoords="offset points", xytext=(0, 10), ha='center', fontsize=9, color=color_line)
 
 ax2 = ax1.twinx()
@@ -293,7 +291,7 @@ def faixa_etaria_ibge(idade_label: str) -> str:
         '75 a 79 anos': '60+', '80 a 84 anos': '60+', '85 a 89 anos': '60+',
         '90 a 94 anos': '60+', '95 a 99 anos': '60+', '100 anos ou mais': '60+',
     }
-    return mapping.get(idade_label, None)
+    return mapping.get(idade_label)
 
 # Dados RAIS
 df23 = pd.read_parquet(os.path.join(BASE_DIR, 'data/processed/rais_vinculos_sc_venezuela_2023.parquet'))

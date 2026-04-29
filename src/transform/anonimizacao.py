@@ -20,18 +20,15 @@ from __future__ import annotations
 import hashlib
 import logging
 import secrets
-from typing import List, Optional
 
 import pandas as pd
-
-from src.config import SETTINGS
 
 logger = logging.getLogger(__name__)
 
 
 def hash_column(
     series: pd.Series,
-    salt: Optional[str] = None,
+    salt: str | None = None,
     algorithm: str = "sha256",
 ) -> pd.Series:
     """Aplica hash criptográfico a uma série de identificadores.
@@ -63,7 +60,7 @@ def hash_column(
     if hasher is None:
         raise ValueError(f"Algoritmo de hash não suportado: {algorithm}")
 
-    def _hash(value) -> Optional[str]:
+    def _hash(value) -> str | None:
         if pd.isna(value) or str(value).strip() == "":
             return None
         payload = f"{str(value).strip()}:{salt}"
@@ -74,9 +71,9 @@ def hash_column(
 
 def anonymize_dataframe(
     df: pd.DataFrame,
-    drop: Optional[List[str]] = None,
-    hash_map: Optional[dict] = None,
-    salt: Optional[str] = None,
+    drop: list[str] | None = None,
+    hash_map: dict | None = None,
+    salt: str | None = None,
     min_group_size: int = 5,
 ) -> pd.DataFrame:
     """Anonimiza um DataFrame removendo e/ou hasheando colunas sensíveis.
@@ -131,7 +128,7 @@ def anonymize_dataframe(
 def aggregate_municipal(
     df: pd.DataFrame,
     cod_ibge_col: str = "cod_ibge",
-    agg_specs: Optional[dict] = None,
+    agg_specs: dict | None = None,
 ) -> pd.DataFrame:
     """Agrega microdados ao nível municipal para anonimização.
 

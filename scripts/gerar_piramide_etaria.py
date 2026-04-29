@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Gera pirâmide etária comparativa entre venezuelanos (RAIS) e população total
 do Oeste SC (Região Intermediária de Chapecó - 109 municípios).
@@ -14,11 +13,12 @@ Saídas:
 - outputs/figures/17_indice_concentracao_etaria.png
 """
 
-import pandas as pd
-import numpy as np
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
-from pathlib import Path
+import numpy as np
+import pandas as pd
 
 # ---------------------------------------------------------------------------
 # 1. CONFIGURAÇÕES
@@ -90,7 +90,7 @@ def faixa_etaria_ibge(idade_label: str) -> str:
         '95 a 99 anos': '60+',
         '100 anos ou mais': '60+',
     }
-    return mapping.get(idade_label, None)
+    return mapping.get(idade_label)
 
 
 # ---------------------------------------------------------------------------

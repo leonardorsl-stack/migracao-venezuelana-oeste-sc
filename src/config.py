@@ -16,7 +16,6 @@ from __future__ import annotations
 import os
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import List
 
 from dotenv import load_dotenv
 
@@ -59,7 +58,7 @@ class Settings:
 
     # Constantes do domínio
     # Região Geográfica Intermediária de Chapecó (IBGE) — 109 municípios
-    REGIAO_OESTE_SC: List[int] = field(
+    REGIAO_OESTE_SC: list[int] = field(
         default_factory=lambda: [
             4200051, 4200101, 4200408, 4200507, 4200556, 4200754, 4200804,
             4201273, 4201653, 4202081, 4202099, 4202156, 4202537, 4202578,
@@ -84,7 +83,7 @@ class Settings:
         default_factory=lambda: range(2018, 2027)
     )
 
-    NACIONALIDADE_VENEZUELA: List[str] = field(
+    NACIONALIDADE_VENEZUELA: list[str] = field(
         default_factory=lambda: [
             "VENEZUELA",
             "VENEZUELANO",

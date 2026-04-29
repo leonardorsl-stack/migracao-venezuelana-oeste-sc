@@ -17,7 +17,7 @@ import logging
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
 # Garante que o diretório raiz do projeto está no PYTHONPATH
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -25,8 +25,8 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.config import SETTINGS
-from src.extract.ibge import fetch_censo_2022_migrantes, fetch_populacao_estimada
 from src.extract.datasus import download_sim_sc, download_sinasc_sc
+from src.extract.ibge import fetch_censo_2022_migrantes, fetch_populacao_estimada
 
 logger = logging.getLogger("run_ingestion")
 
@@ -47,9 +47,9 @@ def setup_logging(level: int = logging.INFO) -> None:
     logger.info("Logging configurado. Arquivo: %s", log_file)
 
 
-def collect_file_info(pattern: str) -> List[Dict[str, Any]]:
+def collect_file_info(pattern: str) -> list[dict[str, Any]]:
     """Coleta metadados de arquivos que casam com o padrão glob."""
-    files: List[Dict[str, Any]] = []
+    files: list[dict[str, Any]] = []
     for path in SETTINGS.DATA_RAW.rglob(pattern):
         if path.is_file():
             stat = path.stat()
@@ -71,7 +71,7 @@ def _human_readable_size(size_bytes: int) -> str:
     return f"{size_bytes:.1f} TB"
 
 
-def generate_report(report_data: Dict[str, Any], output_path: Path) -> None:
+def generate_report(report_data: dict[str, Any], output_path: Path) -> None:
     """Gera relatório de ingestão em JSON e texto simples."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -125,7 +125,7 @@ def run(force: bool = False) -> int:
     setup_logging()
     logger.info("Iniciando pipeline de ingestão (force=%s)", force)
 
-    report: Dict[str, Any] = {
+    report: dict[str, Any] = {
         "timestamp": datetime.now().isoformat(),
         "force": force,
         "steps": [],

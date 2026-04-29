@@ -4,9 +4,10 @@ Gera 7 visualizações para o projeto migração-venezuelana-oeste-sc.
 """
 
 import os
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
 
@@ -72,7 +73,7 @@ ax1.set_xticks(reg['ano'])
 ax1.set_ylim(0, reg['taxa_vinculos_por_mil'].max() * 1.15)
 
 # Adicionar rótulos na linha
-for x, y in zip(reg['ano'], reg['taxa_vinculos_por_mil']):
+for x, y in zip(reg['ano'], reg['taxa_vinculos_por_mil'], strict=False):
     ax1.annotate(f'{y:.1f}', xy=(x, y), textcoords="offset points", xytext=(0, 10), ha='center', fontsize=9, color=color_line)
 
 ax2 = ax1.twinx()
@@ -101,10 +102,10 @@ top20 = p2024.nlargest(20, 'taxa_vinculos_por_mil').sort_values('taxa_vinculos_p
 
 fig, ax = plt.subplots(figsize=(12, 10))
 colors = sns.color_palette("coolwarm_r", n_colors=20)
-colors = [c if mun != 'Chapecó' else '#d62728' for c, mun in zip(colors, top20['municipio'])]
+colors = [c if mun != 'Chapecó' else '#d62728' for c, mun in zip(colors, top20['municipio'], strict=False)]
 
 bars = ax.barh(top20['municipio'], top20['taxa_vinculos_por_mil'], color=colors, edgecolor='black', linewidth=0.3)
-for bar, val in zip(bars, top20['taxa_vinculos_por_mil']):
+for bar, val in zip(bars, top20['taxa_vinculos_por_mil'], strict=False):
     ax.text(val + 2, bar.get_y() + bar.get_height()/2, f'{val:.1f}', va='center', fontsize=9)
 
 ax.set_xlabel('Taxa de vínculos RAIS por mil habitantes', fontsize=13)
@@ -123,7 +124,7 @@ fig, ax = plt.subplots(figsize=(12, 8))
 colors = ['#d62728' if i >= len(top15_vol)-3 else '#4c72b0' for i in range(len(top15_vol))]
 
 bars = ax.barh(top15_vol['municipio'], top15_vol['total_vinculos_rais'], color=colors, edgecolor='black', linewidth=0.3)
-for bar, val in zip(bars, top15_vol['total_vinculos_rais']):
+for bar, val in zip(bars, top15_vol['total_vinculos_rais'], strict=False):
     ax.text(val + 50, bar.get_y() + bar.get_height()/2, f'{int(val):,}'.replace(',', '.'), va='center', fontsize=10)
 
 ax.set_xlabel('Número de vínculos RAIS', fontsize=13)
@@ -195,7 +196,7 @@ ax1.plot(reg_full['ano'], reg_full['total_internacoes_sih'], color=color_line, m
 ax1.tick_params(axis='y', labelcolor=color_line)
 ax1.set_xticks(reg_full['ano'])
 
-for x, y in zip(reg_full['ano'], reg_full['total_internacoes_sih']):
+for x, y in zip(reg_full['ano'], reg_full['total_internacoes_sih'], strict=False):
     ax1.annotate(f'{int(y)}', xy=(x, y), textcoords="offset points", xytext=(0, 10), ha='center', fontsize=9, color=color_line)
 
 ax2 = ax1.twinx()
@@ -204,7 +205,7 @@ ax2.set_ylabel('Vínculos RAIS (total regional)', color=color_line2, fontsize=13
 ax2.plot(reg_full['ano'][:-1], reg_full['total_vinculos_rais'][:-1], color=color_line2, marker='o', linewidth=2.5, markersize=8, linestyle='--', label='Vínculos RAIS')
 ax2.tick_params(axis='y', labelcolor=color_line2)
 
-for x, y in zip(reg_full['ano'][:-1], reg_full['total_vinculos_rais'][:-1]):
+for x, y in zip(reg_full['ano'][:-1], reg_full['total_vinculos_rais'][:-1], strict=False):
     ax2.annotate(f'{int(y):,}'.replace(',', '.'), xy=(x, y), textcoords="offset points", xytext=(0, -15), ha='center', fontsize=9, color=color_line2)
 
 fig.suptitle('Evolução das Internações SIH e Vínculos RAIS de Venezuelanos no Oeste de SC (2018-2025)', fontsize=14, fontweight='bold')

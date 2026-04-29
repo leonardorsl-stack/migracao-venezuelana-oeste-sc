@@ -3,10 +3,8 @@
 import hashlib
 
 import pandas as pd
-import pytest
-
-from transform.harmonizacao import harmonize_geocodes
 from transform.anonimizacao import aggregate_municipal, hash_column
+from transform.harmonizacao import harmonize_geocodes
 
 
 def test_hash_column_produces_expected_hash():
@@ -15,8 +13,8 @@ def test_hash_column_produces_expected_hash():
     series = pd.Series(["12345678900", "98765432100", None])
     result = hash_column(series, salt=salt)
 
-    expected_0 = hashlib.sha256(f"12345678900:{salt}".encode("utf-8")).hexdigest()
-    expected_1 = hashlib.sha256(f"98765432100:{salt}".encode("utf-8")).hexdigest()
+    expected_0 = hashlib.sha256(f"12345678900:{salt}".encode()).hexdigest()
+    expected_1 = hashlib.sha256(f"98765432100:{salt}".encode()).hexdigest()
 
     assert result.iloc[0] == expected_0
     assert result.iloc[1] == expected_1

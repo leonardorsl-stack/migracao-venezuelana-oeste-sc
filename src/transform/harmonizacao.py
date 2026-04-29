@@ -14,11 +14,9 @@ from __future__ import annotations
 
 import logging
 import re
-from typing import List, Optional, Sequence, Union
+from collections.abc import Sequence
 
 import pandas as pd
-
-from src.config import SETTINGS
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +24,7 @@ logger = logging.getLogger(__name__)
 def harmonize_geocodes(
     series: pd.Series,
     target_length: int = 7,
-    invalid_fill: Optional[str] = None,
+    invalid_fill: str | None = None,
 ) -> pd.Series:
     """Harmoniza códigos geográficos do IBGE para comprimento padrão.
 
@@ -53,7 +51,7 @@ def harmonize_geocodes(
     # Remove possíveis pontos/decimais de conversão float
     s = s.str.replace(r"\.0$", "", regex=True)
 
-    def _adjust_code(code) -> Optional[str]:
+    def _adjust_code(code) -> str | None:
         if pd.isna(code):
             return invalid_fill
         code_str = str(code).strip()
@@ -75,7 +73,7 @@ def harmonize_geocodes(
 
 def standardize_dates(
     series: pd.Series,
-    input_format: Optional[str] = None,
+    input_format: str | None = None,
     output_format: str = "%Y-%m",
     errors: str = "coerce",
 ) -> pd.Series:
@@ -99,10 +97,10 @@ def standardize_dates(
 
 def merge_datasets(
     datasets: Sequence[pd.DataFrame],
-    on: Union[str, List[str]],
+    on: str | list[str],
     how: str = "outer",
-    validate: Optional[str] = None,
-    indicator: Union[bool, str] = False,
+    validate: str | None = None,
+    indicator: bool | str = False,
 ) -> pd.DataFrame:
     """Consolida múltiplos DataFrames em um único dataset.
 
@@ -129,7 +127,7 @@ def merge_datasets(
     if not datasets:
         raise ValueError("A sequência de datasets não pode estar vazia.")
 
-    keys: List[str] = [on] if isinstance(on, str) else list(on)
+    keys: list[str] = [on] if isinstance(on, str) else list(on)
 
     # Garante que todas as chaves existem
     for i, df in enumerate(datasets):

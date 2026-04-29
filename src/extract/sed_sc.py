@@ -33,7 +33,6 @@ from __future__ import annotations
 import logging
 import warnings
 from pathlib import Path
-from typing import Optional
 
 import pandas as pd
 
@@ -43,9 +42,9 @@ logger = logging.getLogger(__name__)
 
 
 def load_matriculas(
-    filepath: Optional[Path] = None,
-    ano: Optional[int] = None,
-    municipios_ibge: Optional[list] = None,
+    filepath: Path | None = None,
+    ano: int | None = None,
+    municipios_ibge: list | None = None,
 ) -> pd.DataFrame:
     """Carrega microdados de matrículas da rede estadual/municipal de SC.
 
@@ -97,9 +96,9 @@ def load_matriculas(
 
 
 def load_pare(
-    filepath: Optional[Path] = None,
-    ano: Optional[int] = None,
-    municipios_ibge: Optional[list] = None,
+    filepath: Path | None = None,
+    ano: int | None = None,
+    municipios_ibge: list | None = None,
 ) -> pd.DataFrame:
     """Carrega dados do PARE (Programa de Avaliação de Rendimento Escolar) de SC.
 

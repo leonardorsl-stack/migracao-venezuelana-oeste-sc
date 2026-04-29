@@ -31,7 +31,7 @@ import logging
 import os
 import sys
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import requests
 
@@ -52,7 +52,7 @@ logger = logging.getLogger(__name__)
 def _get_token() -> str:
     token = os.getenv("ZENODO_TOKEN", "")
     if not token:
-        raise EnvironmentError(
+        raise OSError(
             "ZENODO_TOKEN não encontrado. Verifique seu arquivo .env."
         )
     return token
@@ -74,7 +74,7 @@ def get_zenodo_api_url(sandbox: bool = False) -> str:
     )
 
 
-def _headers() -> Dict[str, str]:
+def _headers() -> dict[str, str]:
     return {
         "Authorization": f"Bearer {_get_token()}",
         "Content-Type": "application/json",
@@ -84,10 +84,10 @@ def _headers() -> Dict[str, str]:
 def create_deposition(
     title: str,
     description: str,
-    creators: List[Dict[str, Any]],
+    creators: list[dict[str, Any]],
     sandbox: bool = False,
-    metadata_extra: Optional[Dict[str, Any]] = None,
-) -> Dict[str, Any]:
+    metadata_extra: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """Cria um novo depósito (rascunho) no Zenodo.
 
     Args:
@@ -102,7 +102,7 @@ def create_deposition(
         Dicionário com os dados do depósito criado.
     """
     url = f"{get_zenodo_api_url(sandbox)}/deposit/depositions"
-    payload: Dict[str, Any] = {
+    payload: dict[str, Any] = {
         "metadata": {
             "title": title,
             "description": description,
@@ -123,7 +123,7 @@ def create_deposition(
     return data
 
 
-def get_deposition(deposition_id: int | str, sandbox: bool = False) -> Dict[str, Any]:
+def get_deposition(deposition_id: int | str, sandbox: bool = False) -> dict[str, Any]:
     """Recupera informações de um depósito existente.
 
     Args:
@@ -143,7 +143,7 @@ def upload_file_to_zenodo(
     deposition_id: int | str,
     file_path: Path,
     sandbox: bool = False,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Faz upload de um arquivo para um depósito Zenodo existente.
 
     Args:
@@ -179,7 +179,7 @@ def upload_file_to_zenodo(
     return resp.json()
 
 
-def publish_deposition(deposition_id: int | str, sandbox: bool = False) -> Dict[str, Any]:
+def publish_deposition(deposition_id: int | str, sandbox: bool = False) -> dict[str, Any]:
     """Publica um depósito, gerando DOI permanente.
 
     Args:
@@ -250,7 +250,7 @@ def _build_argparser() -> argparse.ArgumentParser:
     return parser
 
 
-def main(argv: Optional[list[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     args = _build_argparser().parse_args(argv)
 
     log_level = logging.DEBUG if args.verbose else logging.INFO
@@ -260,7 +260,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     )
 
     try:
-        creators: List[Dict[str, Any]] = json.loads(args.creators)
+        creators: list[dict[str, Any]] = json.loads(args.creators)
     except json.JSONDecodeError as exc:
         logger.error("--creators não é um JSON válido: %s", exc)
         return 1
@@ -283,7 +283,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     except requests.HTTPError as exc:
         logger.error("Erro na API Zenodo: %s", exc)
         return 1
-    except (EnvironmentError, FileNotFoundError, RuntimeError) as exc:
+    except (OSError, FileNotFoundError, RuntimeError) as exc:
         logger.error("%s", exc)
         return 1
 

@@ -13,16 +13,14 @@ Example:
 from __future__ import annotations
 
 import logging
-from typing import Dict, List, Optional, Sequence
+from collections.abc import Sequence
 
 import pandas as pd
-
-from src.config import SETTINGS
 
 logger = logging.getLogger(__name__)
 
 # Mapeamento CNAE 2.0 -> setores agregados (nível seção)
-_CNAE_SECAO_MAP: Dict[str, str] = {
+_CNAE_SECAO_MAP: dict[str, str] = {
     "01": "Agricultura, pecuária, produção florestal, pesca e aquicultura",
     "02": "Agricultura, pecuária, produção florestal, pesca e aquicultura",
     "03": "Agricultura, pecuária, produção florestal, pesca e aquicultura",
@@ -113,7 +111,7 @@ _CNAE_SECAO_MAP: Dict[str, str] = {
 }
 
 # Microrregiões do Oeste de SC (codigos IBGE das microrregiões)
-_MICROREGIAO_MAP: Dict[str, str] = {
+_MICROREGIAO_MAP: dict[str, str] = {
     "42001": "Chapecó",
     "42002": "Concórdia",
     "42003": "Joaçaba",
@@ -122,7 +120,7 @@ _MICROREGIAO_MAP: Dict[str, str] = {
 }
 
 # Mapeamento município -> microrregião (simplificado; parcial)
-_MUN_TO_MICRO: Dict[int, str] = {
+_MUN_TO_MICRO: dict[int, str] = {
     4204202: "Chapecó",
     4204301: "Concórdia",
     4216800: "Seara",
@@ -207,8 +205,8 @@ def cnae_to_sector(cnae_code: str) -> str:
 
 def cut_age_bins(
     series: pd.Series,
-    bins: Optional[Sequence[int]] = None,
-    labels: Optional[Sequence[str]] = None,
+    bins: Sequence[int] | None = None,
+    labels: Sequence[str] | None = None,
     right: bool = True,
 ) -> pd.Series:
     """Classifica idades em faixas etárias.
@@ -239,10 +237,10 @@ def cut_age_bins(
 def compute_indices(
     df: pd.DataFrame,
     group_col: str = "cod_ibge",
-    pop_col: Optional[str] = None,
-    vinculos_col: Optional[str] = None,
-    mortes_col: Optional[str] = None,
-    nascimentos_col: Optional[str] = None,
+    pop_col: str | None = None,
+    vinculos_col: str | None = None,
+    mortes_col: str | None = None,
+    nascimentos_col: str | None = None,
 ) -> pd.DataFrame:
     """Calcula índices municipais a partir de indicadores agregados.
 

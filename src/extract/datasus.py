@@ -29,7 +29,6 @@ from __future__ import annotations
 import logging
 import warnings
 from pathlib import Path
-from typing import List, Optional, Union
 
 import pandas as pd
 
@@ -39,7 +38,7 @@ logger = logging.getLogger(__name__)
 
 # Tenta importar pysus; caso contrário, funcionam como stubs com aviso
 try:
-    from pysus.online_data import SIM, SINASC, SIH, SIA, PNI
+    from pysus.online_data import PNI, SIA, SIH, SIM, SINASC
     _PYSUS_AVAILABLE = True
 except ImportError:  # pragma: no cover
     warnings.warn(
@@ -103,7 +102,7 @@ def _save_stub(path: Path, base_name: str, error_msg: str) -> pd.DataFrame:
 
 
 def download_sim_sc(
-    years: Optional[Union[int, List[int]]] = None,
+    years: int | list[int] | None = None,
     force: bool = False,
 ) -> pd.DataFrame:
     """Download dos dados do SIM (Mortalidade) para SC via PySUS.
@@ -126,7 +125,7 @@ def download_sim_sc(
     """
     if years is None:
         years = list(range(2018, 2024))
-    anos: List[int] = [years] if isinstance(years, int) else years
+    anos: list[int] = [years] if isinstance(years, int) else years
 
     if not _PYSUS_AVAILABLE:
         logger.error("PySUS não está instalado. Instale com: pip install pysus")
@@ -135,7 +134,7 @@ def download_sim_sc(
         return _save_stub(stub_path, "SIM_SC", "PySUS não instalado")
 
     cache_dir = _datasus_cache_dir("sim")
-    frames: List[pd.DataFrame] = []
+    frames: list[pd.DataFrame] = []
 
     for a in anos:
         if a < 1996 or a > 2024:
@@ -183,7 +182,7 @@ def download_sim_sc(
 
 
 def download_sinasc_sc(
-    years: Optional[Union[int, List[int]]] = None,
+    years: int | list[int] | None = None,
     force: bool = False,
 ) -> pd.DataFrame:
     """Download dos dados do SINASC (Nascidos Vivos) para SC via PySUS.
@@ -201,7 +200,7 @@ def download_sinasc_sc(
     """
     if years is None:
         years = list(range(2018, 2024))
-    anos: List[int] = [years] if isinstance(years, int) else years
+    anos: list[int] = [years] if isinstance(years, int) else years
 
     if not _PYSUS_AVAILABLE:
         logger.error("PySUS não está instalado.")
@@ -210,7 +209,7 @@ def download_sinasc_sc(
         return _save_stub(stub_path, "SINASC_SC", "PySUS não instalado")
 
     cache_dir = _datasus_cache_dir("sinasc")
-    frames: List[pd.DataFrame] = []
+    frames: list[pd.DataFrame] = []
 
     for a in anos:
         file_path = cache_dir / f"DN_SC_{a}.parquet"
@@ -253,7 +252,7 @@ def download_sinasc_sc(
 # ---------------------------------------------------------------------------
 
 def download_datasus_sim(
-    years: Union[int, List[int]],
+    years: int | list[int],
     state: str = "SC",
     force: bool = False,
 ) -> pd.DataFrame:
@@ -267,7 +266,7 @@ def download_datasus_sim(
 
 
 def download_datasus_sinasc(
-    years: Union[int, List[int]],
+    years: int | list[int],
     state: str = "SC",
     force: bool = False,
 ) -> pd.DataFrame:
@@ -281,8 +280,8 @@ def download_datasus_sinasc(
 
 
 def download_datasus_aih(
-    years: Union[int, List[int]],
-    months: Optional[Union[int, List[int]]] = None,
+    years: int | list[int],
+    months: int | list[int] | None = None,
     state: str = "SC",
     force: bool = False,
 ) -> pd.DataFrame:
@@ -307,10 +306,10 @@ def download_datasus_aih(
         stub_path = cache_dir / f"SIH_{state}_STUB.parquet"
         return _save_stub(stub_path, f"SIH_{state}", "PySUS não instalado")
 
-    anos: List[int] = [years] if isinstance(years, int) else years
-    meses: List[int] = list(range(1, 13)) if months is None else ([months] if isinstance(months, int) else months)
+    anos: list[int] = [years] if isinstance(years, int) else years
+    meses: list[int] = list(range(1, 13)) if months is None else ([months] if isinstance(months, int) else months)
     cache_dir = _datasus_cache_dir("sih")
-    frames: List[pd.DataFrame] = []
+    frames: list[pd.DataFrame] = []
 
     for a in anos:
         for m in meses:
@@ -338,8 +337,8 @@ def download_datasus_aih(
 
 
 def download_bpa(
-    years: Union[int, List[int]],
-    months: Optional[Union[int, List[int]]] = None,
+    years: int | list[int],
+    months: int | list[int] | None = None,
     state: str = "SC",
     force: bool = False,
 ) -> pd.DataFrame:
@@ -360,10 +359,10 @@ def download_bpa(
         stub_path = cache_dir / f"SIA_{state}_STUB.parquet"
         return _save_stub(stub_path, f"SIA_{state}", "PySUS não instalado")
 
-    anos: List[int] = [years] if isinstance(years, int) else years
-    meses: List[int] = list(range(1, 13)) if months is None else ([months] if isinstance(months, int) else months)
+    anos: list[int] = [years] if isinstance(years, int) else years
+    meses: list[int] = list(range(1, 13)) if months is None else ([months] if isinstance(months, int) else months)
     cache_dir = _datasus_cache_dir("sia")
-    frames: List[pd.DataFrame] = []
+    frames: list[pd.DataFrame] = []
 
     for a in anos:
         for m in meses:
@@ -391,7 +390,7 @@ def download_bpa(
 
 
 def download_sipni(
-    years: Union[int, List[int]],
+    years: int | list[int],
     state: str = "SC",
     force: bool = False,
 ) -> pd.DataFrame:
@@ -411,9 +410,9 @@ def download_sipni(
         stub_path = cache_dir / f"SIPNI_{state}_STUB.parquet"
         return _save_stub(stub_path, f"SIPNI_{state}", "PySUS não instalado")
 
-    anos: List[int] = [years] if isinstance(years, int) else years
+    anos: list[int] = [years] if isinstance(years, int) else years
     cache_dir = _datasus_cache_dir("sipni")
-    frames: List[pd.DataFrame] = []
+    frames: list[pd.DataFrame] = []
 
     for a in anos:
         file_path = cache_dir / f"SIPNI_{state}_{a}.parquet"

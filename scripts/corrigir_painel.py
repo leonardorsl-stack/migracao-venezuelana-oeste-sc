@@ -1,9 +1,10 @@
 """
 Script de correção do painel longitudinal Oeste SC 2018-2024
 """
-import pandas as pd
-import numpy as np
 from pathlib import Path
+
+import numpy as np
+import pandas as pd
 
 PAINEL_PATH = Path("data/processed/painel_oeste_sc_2018_2024.parquet")
 OUTPUT_CORRIGIDO = Path("data/processed/painel_oeste_sc_2018_2024_corrigido.parquet")
@@ -34,10 +35,10 @@ print(f"  Depois: total_nascimentos={depois_nasc}, taxa_natalidade={depois_taxa}
 # VERIFICAÇÃO FINAL
 # ============================================================
 print("\n=== Verificação pós-correção ===")
-print(f"NaNs em total_nascimentos por ano:")
+print("NaNs em total_nascimentos por ano:")
 print(df.groupby('ano')['total_nascimentos'].apply(lambda x: x.isnull().sum()))
 
-print(f"\nNaNs em taxa_natalidade por ano:")
+print("\nNaNs em taxa_natalidade por ano:")
 print(df.groupby('ano')['taxa_natalidade'].apply(lambda x: x.isnull().sum()))
 
 # ============================================================

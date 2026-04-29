@@ -15,7 +15,6 @@ import logging
 import os
 import sys
 from pathlib import Path
-from typing import Optional
 
 import requests
 
@@ -154,7 +153,7 @@ def check_zotero() -> tuple[bool, str]:
         return False, str(exc)
 
 
-def main(argv: Optional[list[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     logging.basicConfig(level=logging.WARNING)
 
     print(f"\n{_BOLD}=== Verificação de Credenciais ==={_RESET}\n")

@@ -5,9 +5,8 @@ Projeto: migracao-venezuelana-oeste-sc
 Autores: Leonardo Rafael Santos Leitao e Vicente Neves da Silva Ribeiro (UFFS)
 """
 
-from typing import Optional
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 
 def build_pyramid(df: pd.DataFrame, sexo_col: str, idade_col: str) -> pd.DataFrame:
